@@ -16,3 +16,4 @@ use App\Http\Controllers\AdvanceController;
 
 Route::get('/', [AdvanceController::class,'index']);
 
+Route::get('/thanks', [AdvanceController::class,'thanks']);

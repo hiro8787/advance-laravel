@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 
-<header>
+<header class="title">
     <div class="menu">
         <span class="bar bar-top"></span>
         <span class="bar bar-middle"></span>
         <span class="bar bar-bottom"></span>
-    <div>
+    </div>
+    <div class="logo">Rese</div>
 </header>
 <body>
 
