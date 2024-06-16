@@ -10,14 +10,24 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 
-<header class="title">
-    <div class="menu">
-        <span class="bar bar-top"></span>
-        <span class="bar bar-middle"></span>
-        <span class="bar bar-bottom"></span>
-    </div>
+<div class="menu-container">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-button">
+        <span class="bar-top"></span>
+        <span class="bar-middle"></span>
+        <span class="bar-bottom"></span>
+    </label>
     <div class="logo">Rese</div>
-</header>
+    <nav class="menu">
+    <ul class="menu-list">
+        <li><a class="menu-item" href="#">Home</a></li>
+        <li><a class="menu-item" href="#">Logout</a></li>
+        <li><a class="menu-item" href="#">Mypage</a></li>
+    </ul>
+    </nav>
+</div>
+
+
 <body>
 
 
