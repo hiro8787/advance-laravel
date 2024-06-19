@@ -6,7 +6,6 @@
 @endsection
 
 @section('content')
-
 <div class="main">
     <div class="main-item">Login</div>
     <form class="form" method="POST" action="/login">
@@ -16,9 +15,11 @@
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" name="email" class="form-item-input" placeholder="Email" value="{{ old('email') }}"/>
             </div>
+            <div class="error">
             @error('email')
             {{$errors->first('email')}}
             @enderror
+            </div>
             <div class="form-item-text">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" name="password" class="form-item-input" placeholder="Password" value="{{ old('password') }}"/>
@@ -34,5 +35,4 @@
         </div>
     </form>
 </div>
-
 @endsection

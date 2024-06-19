@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 
-<div class="menu-container">
+<header class="menu-container">
     <input type="checkbox" id="menu-toggle">
     <label for="menu-toggle" class="menu-button">
         <span class="bar-top"></span>
@@ -25,7 +25,7 @@
             <li><a class="menu-item" href="#">Mypage</a></li>
         </ul>
     </nav>
-</div>
+</header>
 
 
 <body>

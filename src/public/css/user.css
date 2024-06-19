@@ -2,12 +2,10 @@
     margin: 200px auto;
     text-align: center;
     width: 30%;
-    border: 1px solid #e9eaea;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #0000006c;
     border: none;
-    position: relative;
-    z-index: 1;
+    display: block;
 }
 
 .main-item {
@@ -46,4 +44,10 @@
     background-color: rgba(26, 53, 253, 0.842);
     border-radius: 5px;
     border: none;
+}
+
+.form-item-input,
+.form-item-btn {
+    pointer-events: auto;
+    opacity: 1;
 }

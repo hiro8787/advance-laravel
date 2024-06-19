@@ -11,7 +11,7 @@
     @yield('css')
 </head>
 <body>
-    <div class="menu-container">
+    <header class="menu-container">
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="menu-button">
             <span class="bar-top"></span>
@@ -26,7 +26,7 @@
                 <li><a class="menu-item" href="#">Login</a></li>
             </ul>
         </nav>
-    </div>
+    </header>
     <main>
         @yield('content')
     </main>

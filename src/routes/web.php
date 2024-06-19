@@ -13,7 +13,8 @@ use App\Http\Controllers\AdvanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [AdvanceController::class,'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [AuthController::class, 'index']);
+});
 
 Route::get('/thanks', [AdvanceController::class,'thanks']);
