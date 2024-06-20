@@ -102,3 +102,15 @@ body {
     margin: 20px;
     transition: 0.2s;
 }
+
+.menu-item-button  {
+    border: none;
+    background: transparent;
+    color: rgba(26, 53, 253, 0.842);
+    margin: 20px;
+    transition: 0.2s;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0;
+}
+

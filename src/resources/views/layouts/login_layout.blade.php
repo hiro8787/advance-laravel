@@ -11,7 +11,7 @@
     @yield('css')
 </head>
 <body>
-    <header class="menu-container">
+    <div class="menu-container">
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="menu-button">
             <span class="bar-top"></span>
@@ -21,12 +21,21 @@
         <div class="logo">Rese</div>
         <nav class="menu">
             <ul class="menu-list">
-                <li><a class="menu-item" href="#">Home</a></li>
-                <li><a class="menu-item" href="#">Registration</a></li>
-                <li><a class="menu-item" href="#">Login</a></li>
+                @if (Auth::check())
+                <li><a class="menu-item" href="/">Home</a></li>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button class="menu-item-button" type="submit">Logout</button>
+                </form>
+                <li><a class="menu-item" href="/mypage">Mypage</a></li>
+                @else
+                <li><a class="menu-item" href="/">Home</a></li>
+                <li><a class="menu-item" href="/register">Registration</a></li>
+                <li><a class="menu-item" href="/login">Login</a></li>
+                @endif
             </ul>
         </nav>
-    </header>
+    </div>
     <main>
         @yield('content')
     </main>

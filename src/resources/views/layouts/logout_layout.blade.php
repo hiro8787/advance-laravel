@@ -21,9 +21,15 @@
         <div class="logo">Rese</div>
         <nav class="menu">
             <ul class="menu-list">
+                @if (Auth::check())
                 <li><a class="menu-item" href="#">Home</a></li>
                 <li><a class="menu-item" href="#">Logout</a></li>
                 <li><a class="menu-item" href="#">Mypage</a></li>
+                @else
+                <li><a class="menu-item" href="/">Home</a></li>
+                <li><a class="menu-item" href="/register">Registration</a></li>
+                <li><a class="menu-item" href="/login">Login</a></li>
+                @endif
             </ul>
         </nav>
     </div>
