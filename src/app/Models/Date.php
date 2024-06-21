@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dates extends Model
 {
     use HasFactory;
+    public function store(){
+        return $this->belongsTo(Store::class);
+    }
 }

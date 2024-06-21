@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Store extends Model
 {
     use HasFactory;
+    public function likes(){
+        return $this->hasMany('App\Models\Like');
+    }
+    public function dates(){
+        return $this->hasMany('App\Models\Date');
+    }
 }

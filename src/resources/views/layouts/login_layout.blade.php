@@ -23,7 +23,7 @@
             <ul class="menu-list">
                 @if (Auth::check())
                 <li><a class="menu-item" href="/">Home</a></li>
-                <form method="POST" action="/logout">
+                <form class="menu-item" method="POST" action="/logout">
                     @csrf
                     <button class="menu-item-button" type="submit">Logout</button>
                 </form>
