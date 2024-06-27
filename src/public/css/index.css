@@ -4,7 +4,9 @@
     margin: 30px;
 }
 
+
 .form-category {
+    display: flex;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #0000006c;
@@ -16,14 +18,31 @@
     height: 30px;
     border-radius: 5px;
     appearance: none;
-    background-image: url("../img/location-arrow-solid.svg");
+}
+
+.store-tag {
+    display: flex;
+    color: rgba(0, 0, 0, 0.294);
+}
+
+.store-tag::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    background-image: url(../img/location-arrow-solid.svg);
     background-repeat: no-repeat;
-    background-size: 24px auto;
-    background-position: right 12px center;
+    background-size: 10px auto;
+    background-position: center;
+    transform: rotate(0.37turn);
 }
 
 .store {
     top: 20px;
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
 }
 
 .fa-solid {

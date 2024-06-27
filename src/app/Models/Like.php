@@ -18,4 +18,5 @@ class Like extends Model
     public function store(){
         return $this->belongsTo(Store::class);
     }
+
 }

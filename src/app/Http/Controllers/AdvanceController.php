@@ -7,13 +7,15 @@ use App\Models\Date;
 use App\Models\Like;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdvanceController extends Controller
 {
     public function index(){
        //$this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
-        $store = DB::table('stores')->get();
-        return view('index', compact('store'));
+        $stores = DB::table('stores')->get();
+        $authors = User::all();
+        return view('index', compact('stores','authors'));
     }
 
     public function login(){
@@ -24,19 +26,31 @@ class AdvanceController extends Controller
         return view('auth.register');
     }
 
-    public function like($id){
-        Like::create([
-            'store_id' => $id,
-            'user_id' => Auth::id(),
-        ]);
+    public function toggleLike(Request $request){
+        $user = Auth::user();
+        $storeId = $request->input('store_id');
+
+        $like = Like::where('user_id', $user->id)->where('store_id', $storeId)->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            Like::create([
+                'user_id' => $user->id,
+                'store_id' => $storeId,
+            ]);
+        }
+
         return redirect()->back();
     }
+    /*
     public function unlike($id){
         $like = Like::where('store_id', $id)->where('user_id', Auth::id())->first();
         $like->delete();
+        session()->flash('success', 'You Unliked the Reply.');
         return redirect()->back();
     }
-
+*/
 
 
     public function thanks(){
