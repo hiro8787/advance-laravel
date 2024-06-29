@@ -17,7 +17,7 @@ class CreateDatesTable extends Migration
             $table->id();
             $table->foreignId('store_id')->constrained()->cascadeOnDelete();
             $table->timestamp('reservation_date');
-            $table->time('reservation_time');
+            $table->unsignedInteger('reservation_time');
             $table->integer('people');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

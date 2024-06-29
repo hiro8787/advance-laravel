@@ -5,9 +5,12 @@ use App\Models\User;
 use App\Models\Store;
 use App\Models\Date;
 use App\Models\Like;
+use App\Models\Time;
+use App\Models\Count;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AdvanceController extends Controller
 {
@@ -51,7 +54,16 @@ class AdvanceController extends Controller
         return redirect()->back();
     }
 */
-
+    public function detail(Request $request){
+    $name = $request->input('name');
+    $image = $request->input('image');
+    $location = $request->input('location');
+    $category = $request->input('category');
+    $explanation = $request->input('explanation');
+    $dates = Time::all();
+    $numbers = Count::all();
+    return view('detail',compact('name','image','location','category','explanation','dates','numbers'));
+}
 
     public function thanks(){
         return view('thanks');

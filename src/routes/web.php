@@ -20,7 +20,8 @@ use App\Http\Controllers\AdvanceController;
 Route::get('/', [AdvanceController::class,'index']);
 Route::post('/', [AdvanceController::class,'index']);
 Route::middleware('auth')->group(function () {
-Route::post('/like', [AdvanceController::class, 'toggleLike'])->name('like.toggle');
+    Route::post('/detail', [AdvanceController::class,'detail']);
+    Route::post('/like', [AdvanceController::class, 'toggleLike'])->name('like.toggle');
 
 
 

@@ -55,3 +55,37 @@
     height: 30px;
     border-radius: 5px;
 }
+
+.store__all{
+    column-count: 4;
+}
+
+.store-img {
+    width: 100%;
+}
+
+.store-img__item{
+    width: 100%;
+}
+
+.store-content {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.store-content__tag {
+
+}
+
+.store-content__cat {
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+
+}
+
+.like-button {
+    border: none;
+}
