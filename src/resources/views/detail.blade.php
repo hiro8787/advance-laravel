@@ -21,12 +21,15 @@
         <h1 class="reservation-text">予約</h1>
         <form action="/done" class="reservation-item" method="POST">
             @csrf
-            <input type="date" name="reservation_date" class="reservation-date" required value="{{old('date')}}">
+            <input type="date" v-bind:min="today" min="{{ date('Y-m-d') }}" name="reservation_date" class="reservation-date" required value="{{old('date')}}">
+            <input type="hidden" name="user_id" value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : ''}}>
             <input type="hidden" name="store_id" value="{{ $stores->id }}" {{ old('store_id') == $stores->id ? 'selected' : ''}}>
             <select class="reservation-time" name="reservation_time">
                 <option value="time" disabled selected hidden>時間を選択</option>
                 @foreach($times as $time)
-                <option value="{{ $time->id }}" {{ old('time_id') == $time->id ? 'selected' : ''}}>{{$time->param}}</option>
+                    @if(strtotime($time->param) >= strtotime('now'))
+                    <option value="{{ $time->id }}" {{ old('time_id') == $time->id ? 'selected' : ''}}>{{$time->param}}</option>
+                    @endif
                 @endforeach
             </select></br>
             <select class="reservation-number" name="people">

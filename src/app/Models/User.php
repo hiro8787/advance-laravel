@@ -46,4 +46,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Like');
     }
 
+    public function dates(){
+        return $this->hasMany('App\Models\Date');
+    }
 }

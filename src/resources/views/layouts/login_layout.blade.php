@@ -27,7 +27,7 @@
                     @csrf
                     <button class="menu-item-button" type="submit">Logout</button>
                 </form>
-                <li><a class="menu-item" href="/mypage">Mypage</a></li>
+                <li><a class="menu-item" href="/my_page">Mypage</a></li>
                 @else
                 <li><a class="menu-item" href="/">Home</a></li>
                 <li><a class="menu-item" href="/register">Registration</a></li>

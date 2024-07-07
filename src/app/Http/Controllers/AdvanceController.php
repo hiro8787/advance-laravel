@@ -61,20 +61,28 @@ class AdvanceController extends Controller
     }
 
     public function detail(Request $request){
-    $dates = Date::with('store')->get();
-    //dd($request);
-    $storeId = $request->id;
-    $stores = Store::find($storeId);
+        //dd($request);
+        $storeId = $request->input('id');
+        $stores = Store::find($storeId);
+    //dd($storeId);
     //dd($stores);
+        $user = Auth::user();
+    //dd($user);
+    //$detail = Date::where('user_id', $user->id)->first();
+    //dd($detail);
+        $dates = Date::with('store')->get();
+    
+    
+
     $name = $request->input('name');
     $image = $request->input('image');
     $location = $request->input('location');
     $category = $request->input('category');
     $explanation = $request->input('explanation');
-    
+
     $times = Time::all();
     $numbers = Count::all();
-    return view('detail',compact('stores', 'dates', 'name', 'image', 'location', 'category','explanation', 'times','numbers'));
+    return view('detail',compact('user', 'stores', 'dates', 'name', 'image', 'location', 'category','explanation', 'times','numbers'));
 }
 
     public function thanks(){
@@ -82,14 +90,10 @@ class AdvanceController extends Controller
     }
 
     public function done(Request $request){
-    $dates = [
-        'store_id' => $request->store_id,
-        'reservation_date' => $request->reservation_date,
-        'reservation_time' => $request->reservation_time,
-        'people' => $request->people,
-    ];
+    $dates = $request->all();
     Date::create($dates);
-
+    //$userId = $request->id;
+    //$user = User::find($userId);
     $name = $request->input('name');
     $image = $request->input('image');
     $location = $request->input('location');
@@ -101,5 +105,13 @@ class AdvanceController extends Controller
 
     public function back(Request $request){
         return view('detail');
+    }
+
+    public function my_page(Request $request){
+        $user = Auth::user();
+        //$date = Date::all();
+        $reservations = Date::with(['user','store'])->get();
+        //dd($reservations);
+        return view('my_page', compact('user', 'reservations'));
     }
 }

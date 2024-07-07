@@ -8,14 +8,15 @@
 <div class='thanks'>
     <div class='thanks-page'>
     <div class='thanks-page__message'>ご予約ありがとうございます</div>
-    <form action='/detail' class='back' method="POST">
+    <form action='/detail' value="{{ $dates['user_id'] }}" class='back' method="POST">
         @csrf
         
-            <input type="hidden" name="name" value="{{$name}}">
-            <input type="hidden" name="image" value="{{$image}}">
-            <input type="hidden" name="location" value="{{$location}}">
-            <input type="hidden" name="category" value="{{$category}}">
+        <input type="hidden" name="name" value="{{$name}}">
+        <input type="hidden" name="image" value="{{$image}}">
+        <input type="hidden" name="location" value="{{$location}}">
+        <input type="hidden" name="category" value="{{$category}}">
         <input type="hidden" name="explanation" value="{{$explanation}}">
+        <input type="hidden" name="user_id" value="{{ $dates['user_id'] }}">
         <input type="hidden" name="store_id" value="{{ $dates['store_id'] }}">
         <input type="hidden" name="reservation_date" value="{{ $dates['reservation_date'] }}">
         <input type="hidden" name="reservation_time" value="{{ $dates['reservation_time'] }}">
