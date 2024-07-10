@@ -61,28 +61,29 @@ class AdvanceController extends Controller
     }
 
     public function detail(Request $request){
-        //dd($request);
+        $user = Auth::user();
+        $detail = $request->input('store_id');
+        //dd($detail);
+        $reservation = $request->all();
+        $reservation = Date::join('stores', 'stores.id', '=', 'dates.store_id')
+            ->where('dates.user_id', $user->id)
+            ->orderBy('dates.created_at', 'desc')
+            ->first();
+        //dd($reservation);
         $storeId = $request->input('id');
         $stores = Store::find($storeId);
-    //dd($storeId);
-    //dd($stores);
-        $user = Auth::user();
-    //dd($user);
-    //$detail = Date::where('user_id', $user->id)->first();
-    //dd($detail);
+        
         $dates = Date::with('store')->get();
-    
-    
+        $name = $request->input('name');
+        $image = $request->input('image');
+        $location = $request->input('location');
+        $category = $request->input('category');
+        $explanation = $request->input('explanation');
+        $times = Time::all();
+        //dd($times);
+        $numbers = Count::all();
 
-    $name = $request->input('name');
-    $image = $request->input('image');
-    $location = $request->input('location');
-    $category = $request->input('category');
-    $explanation = $request->input('explanation');
-
-    $times = Time::all();
-    $numbers = Count::all();
-    return view('detail',compact('user', 'stores', 'dates', 'name', 'image', 'location', 'category','explanation', 'times','numbers'));
+        return view('detail',compact('detail', 'reservation', 'user', 'stores', 'dates', 'name', 'image', 'location', 'category', 'explanation', 'times','numbers'));
 }
 
     public function thanks(){
@@ -90,17 +91,14 @@ class AdvanceController extends Controller
     }
 
     public function done(Request $request){
-    $dates = $request->all();
-    Date::create($dates);
-    //$userId = $request->id;
-    //$user = User::find($userId);
-    $name = $request->input('name');
-    $image = $request->input('image');
-    $location = $request->input('location');
-    $category = $request->input('category');
-    $explanation = $request->input('explanation');
-    //dd($request);
-    return view('done', compact('dates', 'name', 'image', 'location', 'category', 'explanation'));
+        $user = Auth::user();
+        $dates = $request->all();
+        Date::create($dates);
+        $reservation = Date::join('stores', 'stores.id', '=', 'dates.store_id')
+            ->where('dates.user_id', $user->id)
+            ->orderBy('dates.created_at', 'desc')
+            ->first();
+        return view('done', compact('reservation'));
     }
 
     public function back(Request $request){
@@ -109,7 +107,6 @@ class AdvanceController extends Controller
 
     public function my_page(Request $request){
         $user = Auth::user();
-        //$date = Date::all();
         $reservations = Date::with(['user','store'])->get();
         //dd($reservations);
         return view('my_page', compact('user', 'reservations'));

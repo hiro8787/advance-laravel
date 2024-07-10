@@ -28,8 +28,7 @@ class TimesTableSeeder extends Seeder
             "22:00",
             "22:30",
             "23:00",
-            "23:30",
-            "24:00"
+            "23:30"
         ];
         foreach($params as $param) {
             DB::table('times')->insert([

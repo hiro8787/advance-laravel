@@ -84,9 +84,20 @@
     padding: 10px 20px;
 }
 .reservation-content__category {
+    width: 40%;
     color: #fff;
     margin: 0;
     padding: 10px 0;
+}
+
+.reservation-content__item {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.reservation-content__information {
+    color: #fff;
 }
 
 .reservation-button {
