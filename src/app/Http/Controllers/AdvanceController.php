@@ -106,9 +106,23 @@ class AdvanceController extends Controller
     }
 
     public function my_page(Request $request){
+        //dd($request);
         $user = Auth::user();
+        $likes = Like::join('users', 'users.id', '=', 'likes.user_id')
+            ->join('stores', 'stores.id', '=', 'likes.store_id')
+            ->where('likes.user_id', $user->id)
+            ->orderBy('likes.created_at', 'desc')
+            ->get();
+        //dd($likes);
+        
         $reservations = Date::with(['user','store'])->get();
         //dd($reservations);
-        return view('my_page', compact('user', 'reservations'));
+        return view('my_page', compact('user', 'likes', 'reservations'));
+    }
+
+    public function delete(Request $request){
+        //dd($request);
+        Date::find($request->id)->delete();
+        return redirect()->back();
     }
 }

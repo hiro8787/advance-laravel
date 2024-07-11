@@ -1,0 +1,78 @@
+
+.user {
+    width: 100%;
+}
+
+.my_page {
+    display: flex;
+}
+
+.user-name{
+    text-align: center;
+    margin-top: 70px;
+}
+
+.reservation {
+    width: 30%;
+    margin: 0 30px;
+}
+.user-heading{
+
+}
+
+.user-reservation__data {
+    
+}
+
+.user-reservation {
+
+}
+
+.reservation-item {
+    background-color: rgba(0, 71, 250, 0.803);
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #0000006c;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.reservation-title {
+    display: flex;
+    color: #fff;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reservation-number {
+    margin-left: -200px;
+}
+
+.delete-button {
+    border: none;
+    color: #fff;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+.reservation-all {
+    width: 70%;
+}
+
+.reservation-category {
+    display: flex;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.reservation-category__title {
+    width: 50%;
+}
+
+.store {
+    width: 70%;
+}
+
+.store-img {
+    width: 30%;
+}

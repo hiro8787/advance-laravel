@@ -29,4 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/back', [AdvanceController::class,'back']);
     Route::get('/my_page', [AdvanceController::class,'my_page']);
     Route::get('/thanks', [AdvanceController::class,'thanks']);
+    
+    Route::get('/delete', [AdvanceController::class,'delete']);
 });
