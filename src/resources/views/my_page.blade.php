@@ -12,7 +12,9 @@
         <div class="reservation">
             <h2 class="user-heading">予約状況</h2>
             <div class="user-reservation__data">
+                
                 @foreach($reservations as $reservation)
+                @if($reservation)
                 <form action="/delete" class="reservation-item" method="GET">
                     @csrf
                     <div class="user-reservation">
@@ -42,17 +44,42 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 @endforeach
+                
             </div>
         </div>
         <div class="store">
             <h2 class="favorite-store">お気に入り店舗</h2>
-            @if($likes)
+            <div class ="favorite-store__list">
+                @if($likes)
                 @foreach($likes as $like)
-                <img class="store-img" src="{{$like->image}}" alt="" />
-                <h3 class="store-name">{{ $like->name }}</h3>
+                <div class ="favorite-store__content">
+                    <div class="store-img">
+                        <img class="store-img__item" src="{{$like->image}}" alt="" />
+                    </div>
+                    <div class="store-content">
+                        <h3 class="store-name">{{ $like->name }}</h3>
+                        <p class ="store-location">#{{ $like->location }}</P>
+                        <p class ="store-category">#{{ $like->category }}</P>
+                        <div class ="favorite-store__bottom">
+                            <form action="/detail?id={{$like->store_id}}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$like->store_id}}">
+                                <input type="hidden" name="name" value="{{$like->name}}">
+                                <input type="hidden" name="image" value="{{$like->image}}">
+                                <input type="hidden" name="location" value="{{$like->location}}">
+                                <input type="hidden" name="category" value="{{$like->category}}">
+                                <input type="hidden" name="explanation" value="{{$like->explanation}}">
+                                <button type="submit" class="store-content__category">詳しく見る</button>
+                            </form>
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
                 @endforeach
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 </div>

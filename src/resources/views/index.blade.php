@@ -17,6 +17,9 @@
                 @endforeach
             </select>
         </div>
+        <div class="store-item">
+        <i class="fa-solid fa-caret-down"></i>
+        </div>
         <div class="store-tag">
             <select class="store-information" name="store_category">
                 <option value="">All genre</option>
@@ -24,6 +27,9 @@
                 <option value="{{$store->category}}">{{$store->category}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="store-item">
+        <i class="fa-solid fa-caret-down"></i>
         </div>
         <div class="search-item">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -42,7 +48,7 @@
         <h2 class="store-name">{{$store->name}}</h2>
         <p class="store-name__tag">#{{$store->location}} #{{$store->category}}</p>
         <div class="store-content">
-            <form class="store-content__tag" action="/detail" method="post">
+            <form action="/detail" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{$store->id}}">
                 <input type="hidden" name="name" value="{{$store->name}}">

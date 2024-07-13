@@ -21,8 +21,7 @@ class AdvanceController extends Controller
     return view('index', compact('stores', 'authors'));
 }
 
-    public function search(Request $request)
-    {
+    public function search(Request $request){
         $keyword = $request->input('keyword');
         $location = $request->input('location');
         $store_category = $request->input('store_category');
@@ -63,16 +62,13 @@ class AdvanceController extends Controller
     public function detail(Request $request){
         $user = Auth::user();
         $detail = $request->input('store_id');
-        //dd($detail);
         $reservation = $request->all();
         $reservation = Date::join('stores', 'stores.id', '=', 'dates.store_id')
             ->where('dates.user_id', $user->id)
             ->orderBy('dates.created_at', 'desc')
             ->first();
-        //dd($reservation);
         $storeId = $request->input('id');
         $stores = Store::find($storeId);
-        
         $dates = Date::with('store')->get();
         $name = $request->input('name');
         $image = $request->input('image');
@@ -80,15 +76,20 @@ class AdvanceController extends Controller
         $category = $request->input('category');
         $explanation = $request->input('explanation');
         $times = Time::all();
-        //dd($times);
         $numbers = Count::all();
 
         return view('detail',compact('detail', 'reservation', 'user', 'stores', 'dates', 'name', 'image', 'location', 'category', 'explanation', 'times','numbers'));
-}
+    }
 
-    public function thanks(){
+    public function register(Request $request){
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
         return view('thanks');
     }
+
 
     public function done(Request $request){
         $user = Auth::user();
@@ -106,22 +107,20 @@ class AdvanceController extends Controller
     }
 
     public function my_page(Request $request){
-        //dd($request);
         $user = Auth::user();
         $likes = Like::join('users', 'users.id', '=', 'likes.user_id')
             ->join('stores', 'stores.id', '=', 'likes.store_id')
             ->where('likes.user_id', $user->id)
             ->orderBy('likes.created_at', 'desc')
             ->get();
-        //dd($likes);
-        
-        $reservations = Date::with(['user','store'])->get();
-        //dd($reservations);
+        $reservations = Date::with(['user','store'])
+            ->where('dates.user_id', $user->id)
+            ->get();
+
         return view('my_page', compact('user', 'likes', 'reservations'));
     }
 
-    public function delete(Request $request){
-        //dd($request);
+    public function delete(Request $request) {
         Date::find($request->id)->delete();
         return redirect()->back();
     }

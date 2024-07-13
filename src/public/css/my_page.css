@@ -73,6 +73,62 @@
     width: 70%;
 }
 
-.store-img {
-    width: 30%;
+.favorite-store__list {
+    display: flex;
+    flex-wrap: wrap;
 }
+
+.favorite-store__content {
+    background-color: #fff;
+    width: 40%;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #0000006c;
+    margin: 20px;
+}
+
+.store-img {
+    
+}
+
+.store-img__item {
+    width: 100%;
+}
+
+.store-content {
+    padding: 20px;
+}
+
+.store-name {
+    margin: 0;
+}
+
+.store-location {
+    font-size: 10px;
+    display: inline-block;
+}
+
+.store-category {
+    font-size: 10px;
+    display: inline-block;
+}
+
+.favorite-store__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.store-content__category {
+    width: 120%;
+    font-size: 12px;
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+}
+
+.fa-solid.fa-heart {
+    color: red;
+    font-size: 20px;
+}
+

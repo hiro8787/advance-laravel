@@ -13,12 +13,10 @@ use App\Http\Controllers\AdvanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*Route::middleware('auth')->group(function () {
-    Route::get('/', [AdvanceController::class, 'index']);
-});
-*/
+
 Route::get('/', [AdvanceController::class,'index']);
 Route::post('/', [AdvanceController::class,'index']);
+Route::post('/register', [AdvanceController::class,'register']);
 Route::get('/search', [AdvanceController::class, 'search'])->name('search');
 Route::middleware('auth')->group(function () {
     Route::post('/detail', [AdvanceController::class,'detail']);
@@ -28,7 +26,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/done', [AdvanceController::class,'done']);
     Route::post('/back', [AdvanceController::class,'back']);
     Route::get('/my_page', [AdvanceController::class,'my_page']);
-    Route::get('/thanks', [AdvanceController::class,'thanks']);
-    
     Route::get('/delete', [AdvanceController::class,'delete']);
 });
