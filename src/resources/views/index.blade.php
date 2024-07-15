@@ -45,7 +45,7 @@
         <div class="store-img">
             <img class="store-img__item" src="{{$store->image}}" alt="" />
         </div>
-        <h2 class="store-name">{{$store->name}}</h2>
+        <p class="store-name">{{$store->name}}</p>
         <p class="store-name__tag">#{{$store->location}} #{{$store->category}}</p>
         <div class="store-content">
             <form action="/detail" method="post">

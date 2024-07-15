@@ -12,7 +12,6 @@
         <div class="reservation">
             <h2 class="user-heading">予約状況</h2>
             <div class="user-reservation__data">
-                
                 @foreach($reservations as $reservation)
                 @if($reservation)
                 <form action="/delete" class="reservation-item" method="GET">
@@ -46,7 +45,6 @@
                 </form>
                 @endif
                 @endforeach
-                
             </div>
         </div>
         <div class="store">

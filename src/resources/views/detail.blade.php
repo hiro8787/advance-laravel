@@ -55,9 +55,7 @@
                 </div>
             </div>
             @endisset
-            @if(!$detail)
             <button class="reservation-button" type="submit">予約する</button>
-            @endif
         </form>
     </div>
 </div>
