@@ -122,4 +122,23 @@ class AdvanceController extends Controller
         Date::find($request->id)->delete();
         return redirect()->back();
     }
+
+    public function edit(Request $request){
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $date = $request->input('reservation_date');
+        $time = $request->input('reservation_time');
+        $people = $request->input('people');
+        $times = Time::all();
+        $numbers = Count::all();
+
+        return view('edit', compact('id', 'name', 'date', 'time', 'people', 'times', 'numbers'));
+    }
+
+    public function update(AdvanceRequest $request){
+        $form = $request->all();
+        unset($form['_token']);
+        Date::find($request->id)->update($form);
+        return redirect('/my_page');
+    }
 }

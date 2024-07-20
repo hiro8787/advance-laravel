@@ -14,20 +14,20 @@
             <div class="user-reservation__data">
                 @foreach($reservations as $reservation)
                 @if($reservation)
-                <form action="/delete" class="reservation-item" method="GET">
-                    @csrf
-                    <div class="user-reservation">
+                <div class="reservation-content">
+                    <form action="/delete" class="reservation-item" method="GET">
+                        @csrf
                         <div class="reservation-title">
                             <i class="fa-regular fa-clock"></i>
                             <div class="reservation-number">予約 {{ $reservation->id}}</div>
                             <input type="hidden" name="id" value="{{ $reservation->id }}">
                             <button type="submit" class="delete-button"><i class="fa-regular fa-circle-xmark"></i></button>
                         </div>
-                    </div>
+                    </form>
                     <div class="reservation-all">
                         <table class="reservation-category">
                             <tr>
-                                <th class="reservation-category__title">Shop</th>
+                            <th class="reservation-category__title">Shop</th>
                                 <td class="reservation-category__item">{{ $reservation->store->name }}</td>
                             </tr>
                             <tr>
@@ -43,8 +43,17 @@
                                 <td class="reservation-category__item">{{ $reservation->people }}人</td>
                             </tr>
                         </table>
+                        <form action="/edit" class="edit" method="GET">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $reservation->id }}">
+                            <input type="hidden" name="name" value="{{ $reservation->store->name }}">
+                            <input type="hidden" name="reservation_date" value="{{ $reservation->reservation_date }}">
+                            <input type="hidden" name="reservation_time" value="{{ substr($reservation->reservation_time, 0, 5) }}">
+                            <input type="hidden" name="people" value="{{ $reservation->people }}">
+                            <button type="submit" class="edit-button">予約修正</button>
+                        </form>
                     </div>
-                </form>
+                </div>
                 @endif
                 @endforeach
             </div>
