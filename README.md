@@ -30,11 +30,12 @@ mysql:
     platform: linux/x86_64(この文を追加)
     image: mysql:8.0.26
     environment:
-
+```
+``` bash
 phpmyadmin:
-        platform: linux/x86_64(この文を追加)
-        image: phpmyadmin/phpmyadmin
-        environment:
+    platform: linux/x86_64(この文を追加)
+    image: phpmyadmin/phpmyadmin
+    environment:
 ```
 **Laravel環境構築**
 1. `docker-compose exec php bash`
@@ -64,4 +65,4 @@ php artisan db:seed
 
 ## 環境開発
 - http://localhost/
-- phpMyAdmin:：http://localhost:8080/
+- phpMyAdmin：http://localhost:8080/

@@ -9,12 +9,19 @@
 
 .user-name{
     text-align: center;
-    margin-top: 70px;
+    margin: 0;
+    padding-top: 70px;
 }
 
 .reservation {
     width: 30%;
     margin: 0 30px;
+}
+@media screen and (max-width: 768px) {
+    .reservation {
+        margin: 0;
+        padding-left: 10px;
+    }
 }
 .user-heading{
 
@@ -35,6 +42,13 @@
     padding: 20px;
     margin-bottom: 20px;
 }
+@media screen and (max-width: 768px) {
+    .reservation-item {
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
 
 .reservation-title {
     display: flex;
@@ -44,7 +58,7 @@
 }
 
 .reservation-number {
-    margin-left: -200px;
+    width: 70%;
 }
 
 .delete-button {
@@ -56,17 +70,24 @@
 }
 
 .reservation-all {
-    width: 70%;
+    width: 80%;
+}
+@media screen and (max-width: 768px) {
+    .reservation-all {
+        width: 100%;
+        font-size: 8px;
+    }
 }
 
 .reservation-category {
-    display: flex;
     color: #fff;
     margin: 10px 0;
 }
 
 .reservation-category__title {
+    text-align: left;
     width: 50%;
+    padding: 15px 0;
 }
 
 .store {
@@ -83,7 +104,12 @@
     width: 40%;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #0000006c;
-    margin: 20px;
+    margin: 0 20px 20px;
+}
+@media screen and (max-width: 768px) {
+    .favorite-store__content {
+        width: 100%;
+    }
 }
 
 .store-img {

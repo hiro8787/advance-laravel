@@ -25,22 +25,24 @@
                         </div>
                     </div>
                     <div class="reservation-all">
-                        <div class="reservation-category">
-                            <div class="reservation-category__title">Shop</div>
-                            <div class="reservation-category__item">{{ $reservation->store->name }}</div>
-                        </div>
-                        <div class="reservation-category">
-                            <div class="reservation-category__title">Date</div>
-                            <div class="reservation-category__item">{{ $reservation->reservation_date }}</div>
-                        </div>
-                        <div class="reservation-category">
-                            <div class="reservation-category__title">Time</div>
-                            <div class="reservation-category__item">{{ substr($reservation->reservation_time, 0, 5) }}</div>
-                        </div>
-                        <div class="reservation-category">
-                            <div class="reservation-category__title">Number</div>
-                            <div class="reservation-category__item">{{ $reservation->people }}人</div>
-                        </div>
+                        <table class="reservation-category">
+                            <tr>
+                                <th class="reservation-category__title">Shop</th>
+                                <td class="reservation-category__item">{{ $reservation->store->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="reservation-category__title">Date</th>
+                                <td class="reservation-category__item">{{ $reservation->reservation_date }}</td>
+                            </tr>
+                            <tr>
+                                <th class="reservation-category__title">Time</th>
+                                <td class="reservation-category__item">{{ substr($reservation->reservation_time, 0, 5) }}</td>
+                            </tr>
+                            <tr>
+                                <th class="reservation-category__title">Number</th>
+                                <td class="reservation-category__item">{{ $reservation->people }}人</td>
+                            </tr>
+                        </table>
                     </div>
                 </form>
                 @endif

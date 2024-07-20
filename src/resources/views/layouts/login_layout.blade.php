@@ -35,9 +35,9 @@
                 @endif
             </ul>
         </nav>
+        <main>
+            @yield('content')
+        </main>
     </div>
-    <main>
-        @yield('content')
-    </main>
 </body>
 </html>

@@ -16,11 +16,14 @@ use App\Http\Controllers\AdvanceController;
 
 Route::get('/', [AdvanceController::class,'index']);
 Route::post('/register', [AdvanceController::class,'register']);
-Route::get('/search', [AdvanceController::class, 'search'])->name('search');
+Route::get('/search', [AdvanceController::class,'search'])->name('search');
 Route::middleware('auth')->group(function () {
     Route::post('/detail', [AdvanceController::class,'detail']);
+    Route::get('/detail', [AdvanceController::class,'detail']);
+    //Route::post('/detail', [AdvanceController::class,'create']);
     Route::post('/like', [AdvanceController::class, 'toggleLike'])->name('like.toggle');
     Route::post('/done', [AdvanceController::class,'done']);
+    Route::get('/done', [AdvanceController::class,'done']);
     Route::post('/back', [AdvanceController::class,'back']);
     Route::get('/my_page', [AdvanceController::class,'my_page']);
     Route::get('/delete', [AdvanceController::class,'delete']);
