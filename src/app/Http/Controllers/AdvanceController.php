@@ -9,9 +9,11 @@ use App\Models\Date;
 use App\Models\Like;
 use App\Models\Time;
 use App\Models\Count;
+use App\Models\Evaluation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AdvanceController extends Controller
 {
@@ -63,9 +65,10 @@ class AdvanceController extends Controller
 
     public function detail(Request $request){
         $user = Auth::user();
-        $detail = $request->input('store_id');
+        $detail = $request->input('id');
         $reservation = Date::join('stores', 'stores.id', '=', 'dates.store_id')
             ->where('dates.user_id', $user->id)
+            ->where('dates.store_id', $request->store_id)
             ->orderBy('dates.created_at', 'desc')
             ->first();
         $dates = Date::with('store')->get();
@@ -86,17 +89,19 @@ class AdvanceController extends Controller
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
+
         return view('thanks');
     }
 
-    public function done(AdvanceRequest $request){
+    public function done(Request $request){
         $user = Auth::user();
-        $dates = $request->all();
+        $dates = $request->only(['id', 'user_id', 'store_id', 'reservation_date', 'reservation_time', 'people']);
         Date::create($dates);
         $reservation = Date::join('stores', 'stores.id', '=', 'dates.store_id')
             ->where('dates.user_id', $user->id)
             ->orderBy('dates.created_at', 'desc')
             ->first();
+
         return view('done', compact('reservation'));
     }
 
@@ -114,8 +119,13 @@ class AdvanceController extends Controller
         $reservations = Date::with(['user','store'])
             ->where('dates.user_id', $user->id)
             ->get();
+        $now = carbon::now();
+        $review = Date::join('stores', 'stores.id', '=', 'dates.store_id')
+            //->where('store_id', $storeId)
+            ->whereDate('reservation_date', '<', $now)
+            ->get();
 
-        return view('my_page', compact('user', 'likes', 'reservations'));
+        return view('my_page', compact('user', 'likes', 'reservations', 'review'));
     }
 
     public function delete(Request $request){
@@ -140,5 +150,20 @@ class AdvanceController extends Controller
         unset($form['_token']);
         Date::find($request->id)->update($form);
         return redirect('/my_page');
+    }
+
+    public function review(Request $request){
+        $dateId =$request->input('id');
+        $store = $request->input('store_id');
+        $name = Store::find($store);
+
+        return view('review',compact('name', 'dateId'));
+    }
+
+    public function posting(Request $request){
+        $review = $request->only(['id', 'date_id', 'review', 'comment']);
+        Evaluation::create($review);
+
+        return view('posting');
     }
 }

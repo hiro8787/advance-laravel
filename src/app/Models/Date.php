@@ -18,4 +18,8 @@ class Date extends Model
     public function store(){
         return $this->belongsTo(Store::class);
     }
+
+    public function evaluations(){
+        return $this->hasMany('App\Models\Evaluation');
+    }
 }

@@ -50,8 +50,18 @@
                             <input type="hidden" name="reservation_date" value="{{ $reservation->reservation_date }}">
                             <input type="hidden" name="reservation_time" value="{{ substr($reservation->reservation_time, 0, 5) }}">
                             <input type="hidden" name="people" value="{{ $reservation->people }}">
-                            <button type="submit" class="edit-button">予約修正</button>
+                            <button type="submit" class="edit-button"{{ strtotime($reservation->reservation_date . ' ' . $reservation->reservation_time) >= time() ? '' : 'disabled' }}>予約修正</button>
                         </form>
+                        @if($review && strtotime($reservation->reservation_date . ' ' . $reservation->reservation_time) < time())
+                        <form action="/review" class="review" method="GET">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $reservation->id }}">
+                            <input type="hidden" name="store_id" value="{{ $reservation->store_id }}">
+                            <button type="submit" class="review-button">レビュー</button>
+                        </form>
+                        @else
+                        <div class="review-message">ご来店後にレビューをお願いします。</div>
+                        @endif
                     </div>
                 </div>
                 @endif
@@ -92,7 +102,4 @@
         </div>
     </div>
 </div>
-
-
-
 @endsection

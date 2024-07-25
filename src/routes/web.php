@@ -20,7 +20,6 @@ Route::get('/search', [AdvanceController::class,'search'])->name('search');
 Route::middleware('auth')->group(function () {
     Route::post('/detail', [AdvanceController::class,'detail']);
     Route::get('/detail', [AdvanceController::class,'detail']);
-    //Route::post('/detail', [AdvanceController::class,'create']);
     Route::post('/like', [AdvanceController::class, 'toggleLike'])->name('like.toggle');
     Route::post('/done', [AdvanceController::class,'done']);
     Route::get('/done', [AdvanceController::class,'done']);
@@ -29,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/delete', [AdvanceController::class,'delete']);
     Route::get('/edit', [AdvanceController::class,'edit']);
     Route::post('/edit', [AdvanceController::class,'update']);
+    Route::get('/review', [AdvanceController::class,'review']);
+    Route::POST('/posting', [AdvanceController::class,'posting']);
 });

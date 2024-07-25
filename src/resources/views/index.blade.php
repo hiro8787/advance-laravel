@@ -56,7 +56,7 @@
                 <input type="hidden" name="location" value="{{$store->location}}">
                 <input type="hidden" name="category" value="{{$store->category}}">
                 <input type="hidden" name="explanation" value="{{$store->explanation}}">
-                <button type="submit" class="store-content__cat">詳しく見る</button>
+                <button type="submit" class="store-content__cat">詳しくみる</button>
             </form>
             <form action="{{ route('like.toggle') }}" method="post">
                 @csrf

@@ -13,11 +13,11 @@ class Like extends Model
 
     protected $fillable = ['store_id','user_id'];
 
-    public function user(){
+    public function users(){
         return $this->belongsTo(User::class);
     }
 
-    public function store(){
+    public function stores(){
         return $this->belongsTo(Store::class);
     }
 

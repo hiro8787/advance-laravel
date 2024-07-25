@@ -22,8 +22,8 @@
         <form action="/done" class="reservation-item" method="POST">
             @csrf
             <input type="date" v-bind:min="today" min="{{ date('Y-m-d') }}" name="reservation_date" class="reservation-date" required value="{{old('date')}}">
-            <input type="hidden" name="user_id" value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : ''}}>
-            <input type="hidden" name="store_id" value="{{ $reservation->store_id }}" {{ old('store_id') == $reservation->store_id ? 'selected' : ''}}>
+            <input type="hidden" name="user_id" value="{{ $user->id }}">
+            <input type="hidden" name="store_id" value="{{ old('store_id', $detail) }}">
             <input type="hidden" name="name" value="{{ old('name', $name) }}">
             <input type="hidden" name="image" value="{{ old('image', $image) }}">
             <input type="hidden" name="location" value="{{ old('location', $location) }}">
@@ -43,6 +43,7 @@
                 <option value="{{ $number->id }}" {{ old('counts_id') == $number->id ? 'selected' : ''}}>{{$number->number}}</option>
                 @endforeach
             </select>
+            @if($reservation)
             @isset($detail)
             <table class="reservation-content">
                 <tr class="reservation-content__item">
@@ -63,6 +64,7 @@
                 </tr>
             </table>
             @endisset
+            @endif
             <button class="reservation-button" type="submit">予約する</button>
         </form>
     </div>
