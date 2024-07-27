@@ -43,25 +43,29 @@
                                 <td class="reservation-category__item">{{ $reservation->people }}人</td>
                             </tr>
                         </table>
-                        <form action="/edit" class="edit" method="GET">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $reservation->id }}">
-                            <input type="hidden" name="name" value="{{ $reservation->store->name }}">
-                            <input type="hidden" name="reservation_date" value="{{ $reservation->reservation_date }}">
-                            <input type="hidden" name="reservation_time" value="{{ substr($reservation->reservation_time, 0, 5) }}">
-                            <input type="hidden" name="people" value="{{ $reservation->people }}">
-                            <button type="submit" class="edit-button"{{ strtotime($reservation->reservation_date . ' ' . $reservation->reservation_time) >= time() ? '' : 'disabled' }}>予約修正</button>
-                        </form>
-                        @if($review && strtotime($reservation->reservation_date . ' ' . $reservation->reservation_time) < time())
-                        <form action="/review" class="review" method="GET">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $reservation->id }}">
-                            <input type="hidden" name="store_id" value="{{ $reservation->store_id }}">
-                            <button type="submit" class="review-button">レビュー</button>
-                        </form>
-                        @else
-                        <div class="review-message">ご来店後にレビューをお願いします。</div>
-                        @endif
+                        <div class="QrCode">{!! QrCode::generate(url('my_page?id='.$reservation->id)) !!}
+                            <div class="button">
+                                <form action="/edit" class="edit" method="GET">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $reservation->id }}">
+                                    <input type="hidden" name="name" value="{{ $reservation->store->name }}">
+                                    <input type="hidden" name="reservation_date" value="{{ $reservation->reservation_date }}">
+                                    <input type="hidden" name="reservation_time" value="{{ substr($reservation->reservation_time, 0, 5) }}">
+                                    <input type="hidden" name="people" value="{{ $reservation->people }}">
+                                    <button type="submit" class="edit-button"{{ strtotime($reservation->reservation_date . ' ' . $reservation->reservation_time) >= time() ? '' : 'disabled' }}>予約修正</button>
+                                </form>
+                                @if($review && strtotime($reservation->reservation_date . ' ' . $reservation->reservation_time) < time())
+                                <form action="/review" class="review" method="GET">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $reservation->id }}">
+                                    <input type="hidden" name="store_id" value="{{ $reservation->store_id }}">
+                                    <button type="submit" class="review-button">レビュー</button>
+                                </form>
+                                @else
+                                <div class="review-message">ご来店後にレビューをお願いします。</div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -69,35 +73,37 @@
             </div>
         </div>
         <div class="store">
-            <h2 class="favorite-store">お気に入り店舗</h2>
-            <div class ="favorite-store__list">
-                @if($likes)
-                @foreach($likes as $like)
-                <div class ="favorite-store__content">
-                    <div class="store-img">
-                        <img class="store-img__item" src="{{$like->image}}" alt="" />
-                    </div>
-                    <div class="store-content">
-                        <h3 class="store-name">{{ $like->name }}</h3>
-                        <p class ="store-location">#{{ $like->location }}</P>
-                        <p class ="store-category">#{{ $like->category }}</P>
-                        <div class ="favorite-store__bottom">
-                            <form action="/detail?id={{$like->store_id}}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$like->store_id}}">
-                                <input type="hidden" name="name" value="{{$like->name}}">
-                                <input type="hidden" name="image" value="{{$like->image}}">
-                                <input type="hidden" name="location" value="{{$like->location}}">
-                                <input type="hidden" name="category" value="{{$like->category}}">
-                                <input type="hidden" name="explanation" value="{{$like->explanation}}">
-                                <button type="submit" class="store-content__category">詳しく見る</button>
-                            </form>
-                            <i class="fa-solid fa-heart"></i>
+            <div class="favorite-all">
+                <h2 class="favorite-store">お気に入り店舗</h2>
+                <div class ="favorite-store__list">
+                    @if($likes)
+                    @foreach($likes as $like)
+                    <div class ="favorite-store__content">
+                        <div class="store-img">
+                            <img class="store-img__item" src="{{$like->image}}" alt="" />
+                        </div>
+                        <div class="store-content">
+                            <h3 class="store-name">{{ $like->name }}</h3>
+                            <p class ="store-location">#{{ $like->location }}</P>
+                            <p class ="store-category">#{{ $like->category }}</P>
+                            <div class ="favorite-store__bottom">
+                                <form action="/detail?id={{$like->store_id}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$like->store_id}}">
+                                    <input type="hidden" name="name" value="{{$like->name}}">
+                                    <input type="hidden" name="image" value="{{$like->image}}">
+                                    <input type="hidden" name="location" value="{{$like->location}}">
+                                    <input type="hidden" name="category" value="{{$like->category}}">
+                                    <input type="hidden" name="explanation" value="{{$like->explanation}}">
+                                    <button type="submit" class="store-content__category">詳しく見る</button>
+                                </form>
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
                         </div>
                     </div>
+                    @endforeach
+                    @endif
                 </div>
-                @endforeach
-                @endif
             </div>
         </div>
     </div>

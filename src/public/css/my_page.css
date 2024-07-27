@@ -1,4 +1,5 @@
 .user {
+    background-color: #f3f3f3;
     width: 100%;
 }
 
@@ -13,14 +14,25 @@
 }
 
 .reservation {
-    width: 30%;
-    margin: 0 30px;
+    width: 40%;
+    margin: 0 20px;
 }
 @media screen and (max-width: 768px) {
     .reservation {
         margin: 0;
         padding-left: 10px;
     }
+}
+
+.user-heading {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.user-reservation__data {
+    width: 70%;
+    margin: 0 auto;
 }
 
 .reservation-content {
@@ -36,22 +48,23 @@
         padding: 5px;
     }
 }
-.user-reservation {
-
-}
-
-.reservation-item {
-    
-    
-}
-
-
 
 .reservation-title {
     display: flex;
     color: #fff;
     justify-content: space-between;
     align-items: center;
+}
+
+.QrCode {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    width: 50%;
+    margin: 0 auto;
 }
 
 .reservation-number {
@@ -83,7 +96,8 @@
 .reservation-category__title {
     text-align: left;
     width: 50%;
-    padding: 15px 0;
+    padding: 5px 0;
+    font-weight: normal;
 }
 
 .edit {
@@ -114,12 +128,22 @@
 }
 
 .review-message {
+    font-size: 10px;
     text-align: center;
     color:rgb(255, 255, 0)
 }
 
 .store {
-    width: 70%;
+    width: 60%;
+}
+
+.favorite-all {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.favorite-store {
+    margin-left: 20px;
 }
 
 .favorite-store__list {

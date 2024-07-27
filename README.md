@@ -1,6 +1,6 @@
 # Rese（リーズ）
 飲食店の予約サイトのアプリです。
-![サンプル画像](./src/public/img/RISEトップページ.svg)
+![サンプル画像](./src/public/img/RISEトップページ.jpg)
 ## 上級模擬案件
 ##　機能一覧
 - 会員登録機能
@@ -13,15 +13,15 @@
 - Laravel 8.83.27
 - MySQL 8.0.26
 ## テーブル設計
-![サンプル画像](./src/public/img/テーブル設計1.svg)
-![サンプル画像](./src/public/img/テーブル設計2.svg)
+![サンプル画像](./src/public/img/テーブル設計1.jpg)
+![サンプル画像](./src/public/img/テーブル設計2.jpg)
 ## ER図
-![サンプル画像](./src/public/img/ER図.svg)
+![サンプル画像](./src/public/img/ER図.jpg)
 # 環境構築
 **Dockerビルド**
-1.`git clone git@github.com:hiro8787/advance-laravel.git`
-2.DockerDesktopアプリを立ち上げる
-3.`docker-compose up -d --build`
+1. `git clone git@github.com:hiro8787/advance-laravel.git`
+2. `DockerDesktopアプリを立ち上げる`
+3. `docker-compose up -d --build`
 
 > *`no matching manifest for linux/arm64/v8 in the manifest list entries`とエラーメッセージが出る場合
 docker-compose.ymlファイルの「mysql」と「phpmyadmin」内に「platform」の項目を追加で記載してください*
