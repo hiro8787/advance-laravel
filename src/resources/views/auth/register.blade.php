@@ -42,6 +42,9 @@
                 <div class="form-item-category">
                     <button type="submit" class="form-item-btn">登録</button>
                 </div>
+                @if (session('status'))
+                    <div class="success">{{ session('status') }}</div>
+                @endif
             </div>
         </form>
     </div>

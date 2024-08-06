@@ -65,3 +65,7 @@
     pointer-events: auto;
     opacity: 1;
 }
+
+.certification {
+    color: red;
+}

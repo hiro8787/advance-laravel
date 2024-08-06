@@ -43,7 +43,7 @@
                                 <td class="reservation-category__item">{{ $reservation->people }}人</td>
                             </tr>
                         </table>
-                        <div class="QrCode">{!! QrCode::generate(url('my_page?id='.$reservation->id)) !!}
+                        <div class="QrCode">{!! QrCode::generate(url('confirmation?id='.$reservation->id)) !!}
                             <div class="button">
                                 <form action="/edit" class="edit" method="GET">
                                     @csrf

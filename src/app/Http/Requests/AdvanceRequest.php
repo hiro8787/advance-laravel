@@ -24,14 +24,20 @@ class AdvanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'reservation_time' => 'required'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
         ];
     }
 
     public function messages()
     {
         return [
-            'reservation_time.required' => '予約する時間を選択してください'
+            'name.required' => '名前の登録は必須です',
+            'email.required' => 'メールアドレスは必須です',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
+            'password.required' => 'パスワードの登録は必須です',
+            'password.min' => 'パスワードは8桁以上で決めてください',
         ];
     }
 }

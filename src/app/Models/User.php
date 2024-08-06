@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'verification_token',
     ];
 
     /**
@@ -49,5 +50,4 @@ class User extends Authenticatable implements MustVerifyEmail
     public function dates(){
         return $this->hasMany('App\Models\Date');
     }
-
 }

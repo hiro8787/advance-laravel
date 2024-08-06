@@ -13,10 +13,27 @@ use App\Models\Evaluation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 use Carbon\Carbon;
 
 class AdvanceController extends Controller
 {
+    public function login(Request $request)
+{
+    $credentials = $request->only('email', 'password');
+    $loginAttempt = Auth::attempt($credentials);
+
+    if ($loginAttempt) {
+        $user = Auth::user();
+        if ($user->email_verified_at === null) {
+            Auth::logout();
+            return redirect()->back()->with('error', '受信メールのURLより認証してください。');
+        }
+        return redirect()->intended('/');
+    }
+
+    return redirect()->back()->with('error', 'ログインに失敗しました。');
+}
     public function index(){
     $query = DB::table('stores');
     $stores = $query->get();
@@ -83,16 +100,6 @@ class AdvanceController extends Controller
         return view('detail',compact('user', 'detail', 'reservation', 'dates', 'name', 'image', 'location', 'category', 'explanation', 'times','numbers'));
     }
 
-    public function register(Request $request){
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
-
-        return view('thanks');
-    }
-
     public function done(Request $request){
         $user = Auth::user();
         $dates = $request->only(['id', 'user_id', 'store_id', 'reservation_date', 'reservation_time', 'people']);
@@ -121,7 +128,6 @@ class AdvanceController extends Controller
             ->get();
         $now = carbon::now();
         $review = Date::join('stores', 'stores.id', '=', 'dates.store_id')
-            //->where('store_id', $storeId)
             ->whereDate('reservation_date', '<', $now)
             ->get();
 
@@ -165,5 +171,10 @@ class AdvanceController extends Controller
         Evaluation::create($review);
 
         return view('posting');
+    }
+
+    public function confirmation(Request $request){
+        $reservation = Date::find($request->id);
+        return view('confirmation', compact('reservation'));
     }
 }

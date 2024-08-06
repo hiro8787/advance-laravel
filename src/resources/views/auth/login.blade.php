@@ -17,9 +17,9 @@
                     <input type="email" name="email" class="form-item-input" placeholder="Email" value="{{ old('email') }}"/>
                 </div>
                 <div class="error">
-                @error('email')
-                {{$errors->first('email')}}
-                @enderror
+                    @error('email')
+                    {{$errors->first('email')}}
+                    @enderror
                 </div>
                 <div class="form-item-text">
                     <i class="fa-solid fa-lock"></i>
@@ -33,6 +33,16 @@
                 <div class="form-item-category">
                     <button type="submit" class="form-item-btn">ログイン</button>
                 </div>
+                @if (session('status'))
+                <div class="certification">
+                    {{ session('status') }}
+                </div>
+                @endif
+                @if (session('error'))
+                <div class="certification">
+                    {{ session('error') }}
+                </div>
+                @endif
             </div>
         </form>
     </div>
