@@ -67,6 +67,7 @@
                             </div>
                         </div>
                     </div>
+                    <a href="{{ route('payment.create') }}" class="settlement">事前決済をする</a>
                 </div>
                 @endif
                 @endforeach

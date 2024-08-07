@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\Date;
 use App\Jobs\SendReservationReminderJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -18,7 +19,7 @@ class Kernel extends ConsoleKernel
 {
     $schedule->call(function () {
         $today = now()->toDateString();
-        $reservations = \App\Models\Date::where('reservation_date', $today)->get();
+        $reservations = Date::where('reservation_date', $today)->get();
 
         foreach ($reservations as $reservation) {
             SendReservationReminderJob::dispatch($reservation);

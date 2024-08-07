@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Date;
+use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;

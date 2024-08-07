@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\AdvanceController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,12 @@ Route::get('/verification/notice', function () {
 })->name('verification.notice');
 Route::post('/verification/resend', [RegisterController::class, 'resendVerificationEmail'])->name('verification.resend');
 Route::post('/login', [AdvanceController::class, 'login'])->middleware('verified')->name('login');
+
+Route::prefix('payment')->name('payment.')->group(function () {
+    Route::get('/create', [PaymentController::class, 'create'])->name('create');
+    Route::post('/store', [PaymentController::class, 'store'])->name('store');
+});
+
 Route::get('/confirmation', [AdvanceController::class,'confirmation']);
 
 Route::middleware('auth')->group(function () {
