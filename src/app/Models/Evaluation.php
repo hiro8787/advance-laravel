@@ -13,6 +13,5 @@ class Evaluation extends Model
     public function dates(){
         return $this->belongsTo(Date::class);
     }
-
 }
 

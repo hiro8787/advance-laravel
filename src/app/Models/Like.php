@@ -20,5 +20,4 @@ class Like extends Model
     public function stores(){
         return $this->belongsTo(Store::class);
     }
-
 }

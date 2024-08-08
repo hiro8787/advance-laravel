@@ -16,5 +16,4 @@ class Store extends Model
     public function dates(){
         return $this->hasMany('App\Models\Date');
     }
-
 }

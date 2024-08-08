@@ -18,7 +18,7 @@
             </select>
         </div>
         <div class="store-item">
-        <i class="fa-solid fa-caret-down"></i>
+            <i class="fa-solid fa-caret-down"></i>
         </div>
         <div class="store-tag">
             <select class="store-information" name="store_category">
@@ -29,10 +29,10 @@
             </select>
         </div>
         <div class="store-item">
-        <i class="fa-solid fa-caret-down"></i>
+            <i class="fa-solid fa-caret-down"></i>
         </div>
         <div class="search-item">
-        <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <input class="search" type="search" placeholder="Search ..." name="keyword" value="{{ request('keyword') }}">
     </form>

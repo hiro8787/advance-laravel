@@ -34,14 +34,10 @@
                     <button type="submit" class="form-item-btn">ログイン</button>
                 </div>
                 @if (session('status'))
-                <div class="certification">
-                    {{ session('status') }}
-                </div>
+                <div class="certification">{{ session('status') }}</div>
                 @endif
                 @if (session('error'))
-                <div class="certification">
-                    {{ session('error') }}
-                </div>
+                <div class="certification">{{ session('error') }}</div>
                 @endif
             </div>
         </form>

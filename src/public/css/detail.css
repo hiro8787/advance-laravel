@@ -111,13 +111,7 @@
     padding: 10px;
     text-align: left;
 }
-/*
-.reservation-content__item {
-    display: flex;
-    align-items: center;
-    width: 50%;
-}
-*/
+
 .reservation-content__information {
     color: #fff;
 }

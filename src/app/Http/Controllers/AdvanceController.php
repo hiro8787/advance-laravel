@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdvanceRequest;
+use App\Http\Requests\TimeRequest;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Date;
@@ -18,29 +19,28 @@ use Carbon\Carbon;
 
 class AdvanceController extends Controller
 {
-    public function login(Request $request)
-{
-    $credentials = $request->only('email', 'password');
-    $loginAttempt = Auth::attempt($credentials);
+    public function login(Request $request){
+        $credentials = $request->only('email', 'password');
+        $loginAttempt = Auth::attempt($credentials);
 
-    if ($loginAttempt) {
-        $user = Auth::user();
-        if ($user->email_verified_at === null) {
+        if ($loginAttempt) {
+            $user = Auth::user();
+            if ($user->email_verified_at === null) {
             Auth::logout();
             return redirect()->back()->with('error', '受信メールのURLより認証してください。');
+            }
+            return redirect()->intended('/');
         }
-        return redirect()->intended('/');
+        return redirect()->back()->with('error', 'ログインに失敗しました。');
     }
 
-    return redirect()->back()->with('error', 'ログインに失敗しました。');
-}
     public function index(){
-    $query = DB::table('stores');
-    $stores = $query->get();
-    $authors = User::all();
+        $query = DB::table('stores');
+        $stores = $query->get();
+        $authors = User::all();
 
-    return view('index', compact('stores', 'authors'));
-}
+        return view('index', compact('stores', 'authors'));
+    }
 
     public function search(Request $request){
         $keyword = $request->input('keyword');
@@ -100,7 +100,7 @@ class AdvanceController extends Controller
         return view('detail',compact('user', 'detail', 'reservation', 'dates', 'name', 'image', 'location', 'category', 'explanation', 'times','numbers'));
     }
 
-    public function done(Request $request){
+    public function done(TimeRequest $request){
         $user = Auth::user();
         $dates = $request->only(['id', 'user_id', 'store_id', 'reservation_date', 'reservation_time', 'people']);
         Date::create($dates);
@@ -136,6 +136,7 @@ class AdvanceController extends Controller
 
     public function delete(Request $request){
         Date::find($request->id)->delete();
+
         return redirect()->back();
     }
 
@@ -151,10 +152,11 @@ class AdvanceController extends Controller
         return view('edit', compact('id', 'name', 'date', 'time', 'people', 'times', 'numbers'));
     }
 
-    public function update(AdvanceRequest $request){
+    public function update(TimeRequest $request){
         $form = $request->all();
         unset($form['_token']);
         Date::find($request->id)->update($form);
+
         return redirect('/my_page');
     }
 

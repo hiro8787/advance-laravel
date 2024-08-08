@@ -32,11 +32,11 @@
             <select class="reservation-time" name="reservation_time" value="{{ old('reservation_time') }}">
                 <option disabled selected hidden>時間を選択</option>
                 @foreach($times as $time)
-                    <option value="{{ $time->param }}" {{ old('reservation_time') == $time->param ? 'selected' : ''}}>{{ $time->param }}</option>
+                <option value="{{ $time->param }}" {{ old('reservation_time') == $time->param ? 'selected' : ''}}>{{ $time->param }}</option>
                 @endforeach
             </select>
             @error('reservation_time')
-                <div class="error">{{ $message }}</div>
+            <div class="error">{{ $message }}</div>
             @enderror
             <select class="reservation-number" name="people">
                 @foreach($numbers as $number)
