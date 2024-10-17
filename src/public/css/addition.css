@@ -1,0 +1,21 @@
+.addition {
+    padding: 100px;
+}
+
+.import {
+    width: 100%;
+    height: 100vh;
+}
+.file {
+    font-size: 20px;
+    color: blue;
+}
+
+.submit {
+    font-size: 15px;
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 15px;
+}

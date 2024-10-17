@@ -16,6 +16,11 @@
         <img src="{{ old('image', $image) }}" alt="" class="detail-img">
         <p>#{{ old('location', $location) }} #{{ old('category', $category) }}</p>
         <p>{{ old('explanation', $explanation) }}</p>
+        <form action="/post" method="POST">
+            @csrf
+            <input type="hidden" name="id" value="{{ old('detail', $detail) }}">
+            <button type="submit" class="post">口コミを投稿する</button>
+        </form>
     </div>
     <div class="reservation">
         <h1 class="reservation-text">予約</h1>

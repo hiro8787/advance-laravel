@@ -7,6 +7,22 @@
 
 @section('content')
 <div class="form">
+    @if (session('flash_message'))
+        <div class="flash_message">
+            {{ session('flash_message') }}
+        </div>
+    @endif
+    <form class="" method="GET" action="/">
+        @csrf
+        <div class="sort">
+            <select class="sort-content" name="sort" onchange="this.form.submit()">
+                <option value="">並び替え：評価高/低</option>
+                <option value="random" {{ request('sort') == 'random' ? 'selected' : '' }}>ランダム</option>
+                <option value="high" {{ request('sort') == 'high' ? 'selected' : '' }}>評価が高い順</option>
+                <option value="low" {{ request('sort') == 'low' ? 'selected' : '' }}>評価が低い順</option>
+            </select>
+        </div>
+    </form>
     <form class="form-category" method="GET" action="/search">
         @csrf
         <div class="store-tag">

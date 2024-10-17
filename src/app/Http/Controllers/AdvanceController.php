@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdvanceRequest;
 use App\Http\Requests\TimeRequest;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\AdminRequest;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Date;
@@ -11,6 +12,7 @@ use App\Models\Like;
 use App\Models\Time;
 use App\Models\Count;
 use App\Models\Evaluation;
+use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,23 +25,103 @@ class AdvanceController extends Controller
         $credentials = $request->only('email', 'password');
         $loginAttempt = Auth::attempt($credentials);
 
-        if ($loginAttempt) {
+        if($loginAttempt) {
             $user = Auth::user();
-            if ($user->email_verified_at === null) {
-            Auth::logout();
-            return redirect()->back()->with('error', '受信メールのURLより認証してください。');
-            }
+                if($user->email_verified_at === null) {
+                    Auth::logout();
+                    return redirect()->back()->with('error', '受信メールのURLより認証してください。');
+                }
+                if($user->role === 'admin') {
+                    return redirect()->route('admin');
+                }
             return redirect()->intended('/');
         }
         return redirect()->back()->with('error', 'ログインに失敗しました。');
     }
 
-    public function index(){
-        $query = DB::table('stores');
-        $stores = $query->get();
-        $authors = User::all();
+    public function adminDashboard(){
+        return view('admin');
+    }
 
-        return view('index', compact('stores', 'authors'));
+    public function addition(){
+        return view('addition');
+    }
+
+    public function import(AdminRequest $request) {
+        $file = $request->file('csv_file');
+        try {
+            $data = array_map('str_getcsv', file($file->getRealPath()));
+            $header = array_shift($data);
+
+            foreach ($data as $row) {
+                $storeData = array_combine($header, $row);
+                \App\Models\Store::create([
+                    'name' => $storeData['name'],
+                    'image' => $storeData['image'],
+                    'location' => $storeData['location'],
+                    'category' => $storeData['category'],
+                    'explanation' => $storeData['explanation'],
+                ]);
+            }
+
+            return redirect()->back()->with('success', '店舗情報が登録されました。');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'CSVファイルの処理中にエラーが発生しました。');
+        }
+    }
+
+
+    public function list(){
+        $lists = Post::join('users', 'users.id', '=', 'posts.user_id')
+            ->join('stores', 'stores.id', '=', 'posts.store_id')
+            ->get();
+
+        return view('list', compact('lists'));
+    }
+
+    public function list_delete(Request $request){
+        Post::find($request->id)->delete();
+
+        return redirect()->route('admin');
+    }
+
+    public function index(Request $request){
+        $query = Store::leftJoin('posts', 'stores.id', '=', 'posts.store_id')
+            ->select('stores.*', DB::raw('AVG(posts.post) as average_rating'))
+            ->groupBy('stores.id');
+
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'random':
+                    $stores = Store::inRandomOrder()->get();
+                    break;
+                case 'high':
+                    $storesWithRating = $query->orderBy('average_rating', 'desc')->get()->filter(function ($store) {
+                        return !is_null($store->average_rating);
+                    });
+                    $storesWithoutRating = $query->get()->filter(function ($store) {
+                        return is_null($store->average_rating);
+                    })->shuffle();
+                    $stores = $storesWithRating->concat($storesWithoutRating);
+                    break;
+                case 'low':
+                    $storesWithRating = $query->orderBy('average_rating', 'asc')->get()->filter(function ($store) {
+                        return !is_null($store->average_rating);
+                    });
+                    $storesWithoutRating = $query->get()->filter(function ($store) {
+                        return is_null($store->average_rating);
+                    })->shuffle();
+                    $stores = $storesWithRating->concat($storesWithoutRating);
+                    break;
+                default:
+                    $stores = $query->orderBy('stores.id')->get();
+                    break;
+            }
+        } else {
+            $stores = $query->orderBy('stores.id')->get();
+        }
+
+        return view('index', compact('stores'));
     }
 
     public function search(Request $request){
@@ -178,5 +260,87 @@ class AdvanceController extends Controller
     public function confirmation(Request $request){
         $reservation = Date::find($request->id);
         return view('confirmation', compact('reservation'));
+    }
+
+    public function post(Request $request){
+        $user = Auth::user();
+        $store = Store::find($request->id);
+        $liked = Like::where('user_id', $user->id)->where('store_id', $store)->first();
+
+        return view('post', compact('user', 'liked', 'store'));
+    }
+
+    public function post_review(PostRequest $request){
+        $user = Auth::user();
+        $storeId = $request->input('store_id');
+        $post_review = $request->input('post');
+        $store = Store::findOrFail($storeId);
+        $times = Time::all();
+        $numbers = Count::all();
+        $reservation = Date::join('stores', 'stores.id', '=', 'dates.store_id')
+            ->where('dates.user_id', $user->id)
+            ->where('dates.store_id', $request->store_id)
+            ->orderBy('dates.created_at', 'desc')
+            ->first();
+
+        $existingPost = Post::where('store_id', $storeId)
+            ->where('user_id', $user->id)
+            ->whereNull('deleted_at')
+            ->first();
+
+        if ($existingPost) {
+            $postId = $existingPost->id;
+            $message = '既にレビュー済みです';
+            return view('post_review',['post' => $existingPost],compact('message', 'existingPost', 'store', 'user', 'postId', 'post_review','times', 'numbers', 'reservation'));
+        }
+        $postData = $request->only(['id','user_id', 'store_id', 'post', 'description', 'image']);
+        $post = Post::create($postData);
+        $postId = $post->id;
+
+        $dates = Date::with('store')->get();
+        $name = $request->input('name');
+        $image = $request->input('image');
+        $location = $request->input('location');
+        $category = $request->input('category');
+        $explanation = $request->input('explanation');
+
+        return view('post_review',compact('post', 'post_review', 'postId', 'user', 'store', 'reservation', 'dates', 'name', 'image', 'location', 'category', 'explanation', 'times','numbers', 'existingPost'));
+    }
+
+    public function post_edit(Request $request) {
+        $edit = Post::find($request->id);
+        $user = Auth::user();
+        $store = $request->all();
+        $post = Post::where('user_id', $user->id)->latest()->first();
+        $liked = Like::where('user_id', $user->id)->where('store_id', $store)->first();
+
+        return view('post_edit', compact('user', 'liked', 'store', 'post'));
+    }
+
+    public function post_update(Request $request) {
+        $update = $request->all();
+        unset($update['_token']);
+        Post::find($request->id)->update($update);
+        return redirect('/')->with('flash_message', 'レビューの変更が完了しました');
+    }
+
+    public function post_delete(Request $request) {
+        $post = Post::find($request->id);
+        if ($post) {
+            $post->delete();
+        }
+        $query = DB::table('stores');
+        $stores = $query->get();
+        $authors = User::all();
+
+        return redirect()->route('index')->with('flash_message', 'レビューを削除しました');
+    }
+
+    public function all_post(){
+        $posts = Post::join('users', 'users.id', '=', 'posts.user_id')
+            ->join('stores', 'stores.id', '=', 'posts.store_id')
+            ->get();
+
+        return view('all_post', compact('posts'));
     }
 }

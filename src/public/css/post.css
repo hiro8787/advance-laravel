@@ -1,0 +1,172 @@
+.post{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.post-main{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.post-title{
+    width: 80%;
+    text-align: center;
+}
+
+.post-page{
+    height: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.post-content{
+    margin: 0 auto;
+    width: 60%;
+    border-right: 2px solid #dfdcdce9;
+}
+.post-item{
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #0000006c;
+    width: 80%;
+}
+.post-detail{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+@media screen and (max-width: 768px) {
+    .post-detail {
+        width: 60%;
+    }
+}
+
+.post-form{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.post-tag{
+    display: none;
+}
+
+.post-label{
+    color: #ccc;
+    cursor: pointer;
+    font-size: 25px;
+    padding: 0 5px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.post-label:hover,
+.post-label:hover ~ .post-label,
+.post-tag:checked ~ .post-label{
+    color: #c4c403;
+}
+
+.post-text{
+    text-align: end;
+}
+
+.store-img{
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+}
+
+.store-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px 20px 0;
+}
+
+.store-name__tag {
+    margin: 5px 20px;
+    font-size: 12px;
+}
+
+.store-content__cat{
+    font-size: 15px;
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 15px;
+}
+
+.post-item__tag{
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.fa-solid.fa-heart {
+    font-size: 30px;
+}
+
+.like-button {
+    background-color: #fff;
+    border: none;
+}
+
+.upload_area{
+    height: 150px;
+    text-align: center;
+    background-color: #fff;
+    position: relative;
+}
+
+#uploadArea {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #ccc;
+    position: relative;
+    overflow: hidden;
+}
+
+#preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.input_file{
+    top: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.input-text{
+    position: relative;
+}
+
+.input-explanation{
+    position: relative;
+}
+
+.post_button{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.post_submit{
+    width: 30%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: none;
+}

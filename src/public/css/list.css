@@ -1,0 +1,99 @@
+.list-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    padding: 40px;
+}
+
+.list-all {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 10px;
+}
+
+.list {
+    top: 20px;
+    width: 23%;
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #0000006c;
+}
+
+@media screen and (max-width: 768px) {
+    .list {
+        width: 40%;
+    }
+}
+
+.list-img {
+    width: 100%;
+}
+
+.list-img__item {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.list-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px 20px 0;
+}
+
+.list-name__tag {
+    margin: 5px 20px;
+    font-size: 12px;
+}
+
+@media screen and (max-width: 768px) {
+    .list-name__tag {
+        margin: 10px;
+        font-size: 10px;
+    }
+}
+
+
+.list-content {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .list-content {
+        margin: 5px;
+    }
+}
+
+.list-content__cat {
+    font-size: 15px;
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 15px;
+}
+
+.list-description {
+    margin: 10px;
+    font-size: 10px;
+}
+
+.list-delete {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.list-delete__button {
+    font-size: 15px;
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 15px;
+}

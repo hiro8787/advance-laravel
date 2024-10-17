@@ -26,8 +26,20 @@ class UsersTableSeeder extends Seeder
                 'verification_token' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'role' => 'user',
             ];
         }
+        $users[] = [
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => now(),
+            'verification_token' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+            'role' => 'admin',
+        ];
+
         DB::table('users')->insert($users);
     }
 }

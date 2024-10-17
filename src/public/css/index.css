@@ -1,6 +1,7 @@
 .form {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     padding: 30px 20px;
 }
 @media screen and (max-width: 768px) {
@@ -140,4 +141,29 @@
 .like-button {
     background-color: #fff;
     border: none;
+}
+
+.flash_message {
+    color: red;
+    align-items: center;
+    display: flex;
+    padding: px;
+    font-size: 20px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.sort {
+    margin: 0 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #0000006c;
+}
+
+.sort-content{
+    border: none;
+    height: 40px;
+    border-radius: 5px;
+    appearance: none;
+    padding: 0 10px;
 }

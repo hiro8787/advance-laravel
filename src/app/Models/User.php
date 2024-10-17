@@ -50,4 +50,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function dates(){
         return $this->hasMany('App\Models\Date');
     }
+
+    public function posts(){
+        return $this->hasMany('App\Models\Post');
+    }
 }

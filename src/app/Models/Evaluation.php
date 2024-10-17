@@ -10,7 +10,7 @@ class Evaluation extends Model
     use HasFactory;
     protected $fillable = ['date_id', 'review', 'comment'];
 
-    public function dates(){
+    public function date(){
         return $this->belongsTo(Date::class);
     }
 }
