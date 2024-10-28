@@ -27,12 +27,11 @@ class AdvanceController extends Controller
 
         if($loginAttempt) {
             $user = Auth::user();
-                if($user->email_verified_at === null) {
-                    Auth::logout();
-                    return redirect()->back()->with('error', '受信メールのURLより認証してください。');
-                }
                 if($user->role === 'admin') {
                     return redirect()->route('admin');
+                }
+                if($user->role === 'representative') {
+                    return redirect()->route('representative');
                 }
             return redirect()->intended('/');
         }
@@ -56,7 +55,7 @@ class AdvanceController extends Controller
             foreach ($data as $row) {
                 $storeData = array_combine($header, $row);
                 \App\Models\Store::create([
-                    'name' => $storeData['name'],
+                    'store_name' => $storeData['store_name'],
                     'image' => $storeData['image'],
                     'location' => $storeData['location'],
                     'category' => $storeData['category'],
@@ -138,7 +137,7 @@ class AdvanceController extends Controller
             })
             ->when($keyword, function ($query, $keyword) {
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('name', 'LIKE', "%{$keyword}%")
+                    $query->where('store_name', 'LIKE', "%{$keyword}%")
                         ->orWhere('category', 'LIKE', "%{$keyword}%");
                 });
             })
@@ -171,7 +170,7 @@ class AdvanceController extends Controller
             ->orderBy('dates.created_at', 'desc')
             ->first();
         $dates = Date::with('store')->get();
-        $name = $request->input('name');
+        $name = $request->input('store_name');
         $image = $request->input('image');
         $location = $request->input('location');
         $category = $request->input('category');
@@ -224,7 +223,7 @@ class AdvanceController extends Controller
 
     public function edit(Request $request){
         $id = $request->input('id');
-        $name = $request->input('name');
+        $name = $request->input('store_name');
         $date = $request->input('reservation_date');
         $time = $request->input('reservation_time');
         $people = $request->input('people');
@@ -298,7 +297,7 @@ class AdvanceController extends Controller
         $postId = $post->id;
 
         $dates = Date::with('store')->get();
-        $name = $request->input('name');
+        $name = $request->input('store_name');
         $image = $request->input('image');
         $location = $request->input('location');
         $category = $request->input('category');

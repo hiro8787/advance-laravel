@@ -1,0 +1,44 @@
+.reservation{
+    
+}
+
+.title{
+    text-align: center;
+    font-size: 30px;
+    padding-top: 50px;
+}
+
+.reservation_item{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.reservation_list{
+    width: 50%;
+    margin: 10px;
+    border: 1px solid;
+}
+
+.reservation_title{
+    width: 50%;
+}
+
+.reservation_category{
+
+}
+
+.active{
+    margin: 0 5px;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.pagination{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}

@@ -12,7 +12,7 @@
             {{ session('flash_message') }}
         </div>
     @endif
-    <form class="" method="GET" action="/">
+    <form action="/" method="GET">
         @csrf
         <div class="sort">
             <select class="sort-content" name="sort" onchange="this.form.submit()">
@@ -56,18 +56,18 @@
 <div class="store-all">
     @foreach($stores as $store)
     @if((request('location') == '' || request('location') == $store->location) &&
-        (request('keyword') == '' || stripos($store->name, request('keyword')) !== false || stripos($store->category, request('keyword')) !== false))
+        (request('keyword') == '' || stripos($store->store_name, request('keyword')) !== false || stripos($store->category, request('keyword')) !== false))
     <div class="store" id="{{$store->id}}">
         <div class="store-img">
             <img class="store-img__item" src="{{$store->image}}" alt="" />
         </div>
-        <p class="store-name">{{$store->name}}</p>
+        <p class="store-name">{{$store->store_name}}</p>
         <p class="store-name__tag">#{{$store->location}} #{{$store->category}}</p>
         <div class="store-content">
             <form action="/detail" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{$store->id}}">
-                <input type="hidden" name="name" value="{{$store->name}}">
+                <input type="hidden" name="store_name" value="{{$store->store_name}}">
                 <input type="hidden" name="image" value="{{$store->image}}">
                 <input type="hidden" name="location" value="{{$store->location}}">
                 <input type="hidden" name="category" value="{{$store->category}}">

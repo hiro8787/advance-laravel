@@ -8,7 +8,7 @@
 <div class="review">
     <div class="review-page">
         <h1 class="review-page__message">ご来店ありがとうございました。</h1>
-        <h2 class="review-store">店舗名：{{ $name->name }}</h2>
+        <h2 class="review-store">店舗名：{{ $name->store_name }}</h2>
         <form class="review-form" action='/posting' method="POST">
             @csrf
             <input type="hidden" name="date_id" value="{{$dateId}}">

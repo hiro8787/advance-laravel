@@ -11,7 +11,7 @@
             <form action="/" class="home">
                 <button class="detail-button"><</button>
             </form>
-            <h2 class="detail-name">{{ old('name', $name) }}</h2>
+            <h2 class="detail-name">{{ old('store_name', $name) }}</h2>
         </div>
         <img src="{{ old('image', $image) }}" alt="" class="detail-img">
         <p>#{{ old('location', $location) }} #{{ old('category', $category) }}</p>
@@ -29,7 +29,7 @@
             <input type="date" v-bind:min="today" min="{{ date('Y-m-d') }}" name="reservation_date" class="reservation-date" required value="{{old('date')}}">
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <input type="hidden" name="store_id" value="{{ old('store_id', $detail) }}">
-            <input type="hidden" name="name" value="{{ old('name', $name) }}">
+            <input type="hidden" name="store_name" value="{{ old('store_name', $name) }}">
             <input type="hidden" name="image" value="{{ old('image', $image) }}">
             <input type="hidden" name="location" value="{{ old('location', $location) }}">
             <input type="hidden" name="category" value="{{ old('category', $category) }}">
@@ -53,7 +53,7 @@
             <table class="reservation-content">
                 <tr class="reservation-content__item">
                     <th class="reservation-content__category">Shop</th>
-                    <td class="reservation-content__information">{{ $reservation->name }}</td>
+                    <td class="reservation-content__information">{{ $reservation->store_name }}</td>
                 </tr>
                 <tr class="reservation-content__item">
                     <th class="reservation-content__category">Date</th>

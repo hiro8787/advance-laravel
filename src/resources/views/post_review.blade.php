@@ -23,7 +23,7 @@
                 <input type="hidden" name="id" value="{{$postId}}">
                 <input type="hidden" name="user_id" value="{{$user->id}}">
                 <input type="hidden" name="store_id" value="{{$store->id}}">
-                <input type="hidden" name="name" value="{{$store->name}}">
+                <input type="hidden" name="store_name" value="{{$store->store_name}}">
                 <input type="hidden" name="image" value="{{$store->image}}">
                 <input type="hidden" name="location" value="{{$store->location}}">
                 <input type="hidden" name="category" value="{{$store->category}}">
@@ -57,7 +57,7 @@
                 <input type="hidden" name="id" value="{{$store->id}}">
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                 <input type="hidden" name="store_id" value="{{ $store->store_id }}">
-                <input type="hidden" name="name" value="{{ $store->name }}">
+                <input type="hidden" name="store_name" value="{{ $store->store_name }}">
                 <input type="hidden" name="image" value="{{ $store->image }}">
                 <input type="hidden" name="location" value="{{ $store->location }}">
                 <input type="hidden" name="category" value="{{ $store->category }}">
@@ -80,7 +80,7 @@
                 <table class="reservation-content">
                     <tr class="reservation-content__item">
                         <th class="reservation-content__category">Shop</th>
-                        <td class="reservation-content__information">{{ $reservation->name }}</td>
+                        <td class="reservation-content__information">{{ $reservation->store_name }}</td>
                     </tr>
                     <tr class="reservation-content__item">
                         <th class="reservation-content__category">Date</th>

@@ -14,10 +14,10 @@
                 <form action="/detail" method="post">
                     @csrf
                     <img class="store-img" src="{{$store['image']}}" alt="" />
-                    <p class="store-name">{{$store['name']}}</p>
+                    <p class="store-name">{{$store['store_name']}}</p>
                     <p class="store-name__tag">#{{$store['location']}} #{{$store['category']}}</p>
                     <input type="hidden" name="id" value="{{$store['id']}}">
-                    <input type="hidden" name="name" value="{{$store['name']}}">
+                    <input type="hidden" name="store_name" value="{{$store['store_name']}}">
                     <input type="hidden" name="image" value="{{$store['image']}}">
                     <input type="hidden" name="location" value="{{$store['location']}}">
                     <input type="hidden" name="category" value="{{$store['category']}}">

@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\AdvanceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,4 +61,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/post_delete', [AdvanceController::class,'post_delete']);
     Route::get('/index', [AdvanceController::class,'index'])->name('index');
     Route::get('/all_post', [AdvanceController::class,'all_post']);
+
+    Route::get('/representative', [ManagementController::class, 'representative'])
+    ->name('representative');
+    Route::get('/reservation_status', [ManagementController::class, 'reservation_status']);
+    Route::get('/store_update', [ManagementController::class, 'store_update']);
 });
+
+
+
+

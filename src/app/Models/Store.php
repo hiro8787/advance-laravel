@@ -12,7 +12,7 @@ class Store extends Model
     use Sortable;
 
     protected $fillable = [
-        'name',
+        'store_name',
         'image',
         'location',
         'category',

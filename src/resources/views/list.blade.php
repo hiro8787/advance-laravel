@@ -12,7 +12,7 @@
             <div class="list-img">
                 <img class="list-img__item" src="{{$list->image}}" alt="" />
             </div>
-            <p class="list-name">{{$list->name}}</p>
+            <p class="list-name">{{$list->store_name}}</p>
             <p class="list-name__tag">#{{$list->location}} #{{$list->category}}</p>
             <div class="list-content">
                 <div>レビュー数☆{{$list->post}}</div>

@@ -63,7 +63,7 @@ php artisan migrate
 php artisan db:seed
 ```
 **管理画面で店舗追加時の必須項目** ※下記に見本あり
-1. `name(店名)`
+1. `store_name(店名)`
 2. `image(お店のイメージ画像) ※画像URL`
 3. `location(都道府県)`
 4. `category(お店の種類)`

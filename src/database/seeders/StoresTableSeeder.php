@@ -15,7 +15,7 @@ class StoresTableSeeder extends Seeder
     public function run()
     {
         $param = [
-            'name' => '仙人',
+            'store_name' => '仙人',
             'image' => 'img/sushi.jpg',
             'location' =>'東京都',
             'category' => '寿司',
@@ -23,7 +23,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '牛助',
+            'store_name'=> '牛助',
             'image' => 'img/yakiniku.jpg',
             'location' =>'大阪府',
             'category' => '焼肉',
@@ -31,7 +31,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '戦慄',
+            'store_name' => '戦慄',
             'image' => 'img/izakaya.jpg',
             'location' =>'福岡県',
             'category' => '居酒屋',
@@ -39,7 +39,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => 'ルーク',
+            'store_name' => 'ルーク',
             'image' => 'img/italian.jpg',
             'location' =>'東京都',
             'category' => 'イタリアン',
@@ -47,7 +47,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '志摩屋',
+            'store_name' => '志摩屋',
             'image' => 'img/ramen.jpg',
             'location' =>'福岡県',
             'category' => 'ラーメン',
@@ -55,7 +55,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '香',
+            'store_name' => '香',
             'image' => 'img/yakiniku.jpg',
             'location' =>'東京都',
             'category' => '焼肉',
@@ -63,7 +63,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => 'JJ',
+            'store_name' => 'JJ',
             'image' => 'img/italian.jpg',
             'location' =>'大阪府',
             'category' => 'イタリアン',
@@ -71,7 +71,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => 'らーめん極み',
+            'store_name' => 'らーめん極み',
             'image' => 'img/ramen.jpg',
             'location' =>'東京都',
             'category' => 'ラーメン',
@@ -79,7 +79,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '鳥雨',
+            'store_name' => '鳥雨',
             'image' => 'img/izakaya.jpg',
             'location' =>'大阪府',
             'category' => '居酒屋',
@@ -87,7 +87,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '築地色合',
+            'store_name' => '築地色合',
             'image' => 'img/sushi.jpg',
             'location' =>'東京都',
             'category' => '寿司',
@@ -95,7 +95,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '晴海',
+            'store_name' => '晴海',
             'image' => 'img/yakiniku.jpg',
             'location' =>'大阪府',
             'category' => '焼肉',
@@ -103,7 +103,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '三子',
+            'store_name' => '三子',
             'image' => 'img/yakiniku.jpg',
             'location' =>'福岡県',
             'category' => '焼肉',
@@ -111,7 +111,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '八戒',
+            'store_name' => '八戒',
             'image' => 'img/izakaya.jpg',
             'location' =>'東京都',
             'category' => '居酒屋',
@@ -119,7 +119,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '福助',
+            'store_name' => '福助',
             'image' => 'img/sushi.jpg',
             'location' =>'大阪府',
             'category' => '寿司',
@@ -127,7 +127,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => 'ラー北',
+            'store_name' => 'ラー北',
             'image' => 'img/ramen.jpg',
             'location' =>'東京都',
             'category' => 'ラーメン',
@@ -135,7 +135,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '翔',
+            'store_name' => '翔',
             'image' => 'img/izakaya.jpg',
             'location' =>'大阪府',
             'category' => '居酒屋',
@@ -143,7 +143,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '経緯',
+            'store_name' => '経緯',
             'image' => 'img/sushi.jpg',
             'location' =>'東京都',
             'category' => '寿司',
@@ -151,7 +151,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '漆',
+            'store_name' => '漆',
             'image' => 'img/yakiniku.jpg',
             'location' =>'東京都',
             'category' => '焼肉',
@@ -159,7 +159,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => 'THE TOOL',
+            'store_name' => 'THE TOOL',
             'image' => 'img/italian.jpg',
             'location' =>'福岡県',
             'category' => 'イタリアン',
@@ -167,7 +167,7 @@ class StoresTableSeeder extends Seeder
         ];
         DB::table('stores')->insert($param);
         $param = [
-            'name' => '木船',
+            'store_name' => '木船',
             'image' => 'img/sushi.jpg',
             'location' =>'大阪府',
             'category' => '寿司',

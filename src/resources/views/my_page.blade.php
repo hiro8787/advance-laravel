@@ -28,7 +28,7 @@
                         <table class="reservation-category">
                             <tr>
                             <th class="reservation-category__title">Shop</th>
-                                <td class="reservation-category__item">{{ $reservation->store->name }}</td>
+                                <td class="reservation-category__item">{{ $reservation->store->store_name }}</td>
                             </tr>
                             <tr>
                                 <th class="reservation-category__title">Date</th>
@@ -48,7 +48,7 @@
                                 <form action="/edit" class="edit" method="GET">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $reservation->id }}">
-                                    <input type="hidden" name="name" value="{{ $reservation->store->name }}">
+                                    <input type="hidden" name="store_name" value="{{ $reservation->store->store_name }}">
                                     <input type="hidden" name="reservation_date" value="{{ $reservation->reservation_date }}">
                                     <input type="hidden" name="reservation_time" value="{{ substr($reservation->reservation_time, 0, 5) }}">
                                     <input type="hidden" name="people" value="{{ $reservation->people }}">
@@ -84,14 +84,14 @@
                             <img class="store-img__item" src="{{$like->image}}" alt="" />
                         </div>
                         <div class="store-content">
-                            <h3 class="store-name">{{ $like->name }}</h3>
+                            <h3 class="store-name">{{ $like->store_name }}</h3>
                             <p class ="store-location">#{{ $like->location }}</P>
                             <p class ="store-category">#{{ $like->category }}</P>
                             <div class ="favorite-store__bottom">
                                 <form action="/detail?id={{$like->store_id}}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$like->store_id}}">
-                                    <input type="hidden" name="name" value="{{$like->name}}">
+                                    <input type="hidden" name="store_name" value="{{$like->store_name}}">
                                     <input type="hidden" name="image" value="{{$like->image}}">
                                     <input type="hidden" name="location" value="{{$like->location}}">
                                     <input type="hidden" name="category" value="{{$like->category}}">

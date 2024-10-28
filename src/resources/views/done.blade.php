@@ -10,7 +10,7 @@
         <p class="thanks-page__message">ご予約ありがとうございます</p>
         <form action='/detail' method="POST">
             @csrf
-            <input type="hidden" name="name" value="{{ $reservation->name}}">
+            <input type="hidden" name="store_name" value="{{ $reservation->store_name}}">
             <input type="hidden" name="image" value="{{ $reservation->image}}">
             <input type="hidden" name="location" value="{{ $reservation->location}}">
             <input type="hidden" name="category" value="{{ $reservation->category}}">
