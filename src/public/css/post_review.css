@@ -13,9 +13,10 @@
     width: 100%;
     height: 40%;
 }
-
-.store-name__tag{
-
+@media screen and (max-width: 768px) {
+    .store-img {
+        height: auto;
+    }
 }
 
 .all-post {

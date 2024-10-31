@@ -23,52 +23,15 @@ class RegisterController extends Controller
 {
     use VerifiesUsers;
 
-    public function sendVerificationEmail(User $user)
-    {
-        $verificationUrl = url('/verification?email=' . urlencode($user->email) . '&token=' . $user->verification_token);
-        Mail::to($user->email)->send(new VerifyEmail($verificationUrl));
-    }
-
     public function register(AdvanceRequest $request)
     {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'email_verified_at' => null,
-            'verification_token' => Str::random(40),
         ]);
-        $this->sendVerificationEmail($user);
-        return redirect()->route('register')->with('status', '確認メールを送信しました。');
-    }
 
-    public function getVerification()
-{
-    $token = request()->get('token');
-    $email = request()->get('email');
-    $user = User::where('email', $email)->where('verification_token', $token)->first();
-
-    if ($user) {
-        $user->email_verified_at = now();
-        $user->verification_token = null;
-        $user->save();
-
-        return redirect()->route('login')->with('status', 'メールアドレスが認証されました。ログインしてください。');
-    }
-
-    return redirect()->route('login')->with('error', '認証に失敗しました。');
-}
-
-    public function resendVerificationEmail(Request $request)
-    {
-        $user = Auth::user();
-
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'ログインしてください。');
-        }
-        $this->sendVerificationEmail($user);
-
-        return redirect()->route('verification.notice')->with('status', '確認メールを再送信しました。');
+        return redirect()->route('login');
     }
 }
 

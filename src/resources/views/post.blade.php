@@ -38,7 +38,7 @@
         @error('post')
         <p class="error">{{ $message }}</p>
         @enderror
-        <form action="{{ route('post.review') }}" method="POST" enctype="multipart/form-data">
+        <form class="review_form" action="{{ route('post.review') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <h2>体験を評価してください</h2>
             <div class="post-form">

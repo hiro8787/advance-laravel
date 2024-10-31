@@ -26,12 +26,7 @@ Route::get('/list', [AdvanceController::class,'list']);
 Route::get('/list_delete', [AdvanceController::class,'list_delete']);
 Route::get('/search', [AdvanceController::class,'search'])->name('search');
 Route::post('/register', [RegisterController::class,'register']);
-Route::get('/verification', [RegisterController::class, 'getVerification'])->name('verification');
-Route::get('/verification/notice', function () {
-    return view('auth.verify');
-})->name('verification.notice');
-Route::post('/verification/resend', [RegisterController::class, 'resendVerificationEmail'])->name('verification.resend');
-Route::post('/login', [AdvanceController::class, 'login'])->middleware('verified')->name('login');
+Route::post('/login', [AdvanceController::class, 'login']);
 
 Route::prefix('payment')->name('payment.')->group(function () {
     Route::get('/create', [PaymentController::class, 'create'])->name('create');

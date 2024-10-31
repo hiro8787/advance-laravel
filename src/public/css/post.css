@@ -42,7 +42,13 @@
 }
 @media screen and (max-width: 768px) {
     .post-detail {
-        width: 60%;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .review_form {
+        width: 90%;
     }
 }
 
@@ -74,6 +80,12 @@
 
 .post-text{
     text-align: end;
+}
+
+@media screen and (max-width: 768px) {
+    .post-text__area {
+        width: 100%;
+    }
 }
 
 .store-img{

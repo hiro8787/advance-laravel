@@ -62,6 +62,24 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
+**MailHogの環境構築手順**(電子メールのテストツールです)
+1. docker-compose.ymlファイルに以下を追記
+``` bash
+mailhog:
+    image: mailhog/mailhog
+    ports:
+        - "8025:8025"
+```
+2. Dockerの再ビルド
+```bash
+docker-compose build
+```
+3. コンテナの起動
+```bash
+docker-compose up -d
+```
+4. メールの確認画面
+`http://localhost:8025` にアスセスする事で確認可能
 **管理画面で店舗追加時の必須項目** ※下記に見本あり
 1. `store_name(店名)`
 2. `image(お店のイメージ画像) ※画像URL`
@@ -69,6 +87,18 @@ php artisan db:seed
 4. `category(お店の種類)`
 5. `explanation(お店の紹介文)`
 ![サンプル画像](./src/public/img/追加店舗情報.jpg)
+**アカウントの種類**
+1. 一般ユーザー
+一般ユーザーは会員登録後にお店の予約や、お気に入り登録、レビュー等して頂けます。
+※会員登録にはメール認証が必須となります。
+2. 店舗代表者ユーザー
+店舗代表者ユーザーは以下のアドレスでログインして頂くと、店舗情報の作成や更新、予約情報の確認が可能です。
+メールアドレス：`representative@example.com`
+パスワード：`password`
+3. 管理ユーザー
+管理ユーザーは以下のアドレスでログインして頂くと、お店の追加や店舗代表者を作成できます。
+メールアドレス：`admin@example.com`
+パスワード：`password`
 
 ## 環境開発
 - http://localhost/
