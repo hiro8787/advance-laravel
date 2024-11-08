@@ -116,7 +116,6 @@ class AdvanceController extends Controller
     public function index(Request $request){
     $query = Store::leftJoin('posts', 'stores.id', '=', 'posts.store_id')
         ->select('stores.*', DB::raw('AVG(posts.post) as average_rating'))
-        ->whereNull('posts.deleted_at')
         ->groupBy('stores.id');
 
     if ($request->has('sort')) {
