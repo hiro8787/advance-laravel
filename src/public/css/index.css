@@ -112,7 +112,6 @@
     }
 }
 
-
 .store-content {
     display: flex;
     justify-content: space-between;
@@ -158,6 +157,12 @@
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #0000006c;
+}
+
+@media screen and (max-width: 768px) {
+    .sort {
+        margin-top: 50px;
+    }
 }
 
 .sort-content{

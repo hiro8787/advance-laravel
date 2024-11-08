@@ -18,9 +18,15 @@
         @csrf
             <input class="file" type="file" name="csv_file" >
             <h2>CSVファイルをインポート</h2>
-            @error('csv_file')
-            <div class="error">{{ $message }}</div>
-            @enderror
+            @if ($errors->any())
+                <div class="error">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <button class="submit" type="submit">店舗情報登録</button>
         </form>
     <div>

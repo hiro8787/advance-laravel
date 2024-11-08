@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateRequest;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Date;
@@ -25,9 +26,29 @@ class ManagementController extends Controller
         return view('reservation_status', compact('reserves'));
     }
 
-    public function store_update(){
+    public function store_all(){
         $stores = Store::all();
 
-        return view('store_update',compact('stores'));
+        return view('store_all',compact('stores'));
+    }
+
+    public function store_edit(Request $request){
+        $form = $request->input('id');
+        $store = Store::find($form);
+        $items = Store::select('location', 'category')->get();
+        return view('store_edit', compact('store', 'items'));
+    }
+
+    public function store_update(UpdateRequest $request){
+        $form = $request->all();
+        unset($form['_token']);
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('img'), $imageName);
+            $form['image'] = 'img/' . $imageName;
+        }
+        store::find($request->id)->update($form);
+        return redirect()->route('representative')->with('status', '店舗情報の修正が完了しました。');
     }
 }

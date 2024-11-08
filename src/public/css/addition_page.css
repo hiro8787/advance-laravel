@@ -1,0 +1,28 @@
+.addition-page {
+    padding-top: 100px;
+    height: 100vh;
+    text-align: center;
+}
+
+.addition-form {
+    margin: 5px;
+    width: 20%;
+    height: 30px;
+    font-size: 15px;
+}
+
+.addition-content-item {
+    width: 100%;
+}
+
+.addition-button {
+    font-size: 15px;
+    color: #fff;
+    background-color: rgba(26, 53, 253, 0.842);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 15px;
+    width: 20%;
+    margin-top: 30px;
+    cursor: pointer;
+}

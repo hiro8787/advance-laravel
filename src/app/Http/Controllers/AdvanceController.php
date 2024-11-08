@@ -13,6 +13,7 @@ use App\Models\Time;
 use App\Models\Count;
 use App\Models\Evaluation;
 use App\Models\Post;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,10 @@ class AdvanceController extends Controller
 
         if($loginAttempt) {
             $user = Auth::user();
+                if($user->email_verified_at===null){
+                Auth::logout();
+                    return redirect()->back()->with('error', '受信メールのURLより認証してください。');
+                }
                 if($user->role === 'admin') {
                     return redirect()->route('admin');
                 }
@@ -51,9 +56,31 @@ class AdvanceController extends Controller
         try {
             $data = array_map('str_getcsv', file($file->getRealPath()));
             $header = array_shift($data);
+            $errors = [];
 
             foreach ($data as $row) {
                 $storeData = array_combine($header, $row);
+                $validator = Validator::make($storeData, [
+                    'store_name' => 'required|string|max:20',
+                    'image' => 'required|string',
+                    'location' => 'required|string|in:東京都,福岡県,大阪府',
+                    'category' => 'required|string|in:居酒屋,寿司,焼肉,ラーメン,イタリアン',
+                    'explanation' => 'required|string|max:255',
+                ], [
+                    'store_name.required' => '店舗名は必須です',
+                    'store_name.max' => '店舗名は最大20文字までです',
+                    'image.required' => '店舗のイメージ画像は必須です',
+                    'location.required' => '地域名は必須です',
+                    'location.in' => 'その地域は登録できません',
+                    'category.required' => 'カテゴリーは必須です',
+                    'category.in' => 'そのジャンルは登録できません',
+                    'explanation.required' => '店舗紹介文は必須です',
+                    'explanation.max' => '店舗紹介文は最大255文字までです',
+                ]);
+                if ($validator->fails()) {
+                    $errors[] = $validator->errors()->all();
+                    continue;
+                }
                 \App\Models\Store::create([
                     'store_name' => $storeData['store_name'],
                     'image' => $storeData['image'],
@@ -62,13 +89,15 @@ class AdvanceController extends Controller
                     'explanation' => $storeData['explanation'],
                 ]);
             }
+            if (!empty($errors)) {
+                return redirect()->back()->withErrors($errors)->withInput();
+            }
 
             return redirect()->back()->with('success', '店舗情報が登録されました。');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'CSVファイルの処理中にエラーが発生しました。');
+            return redirect()->back()->with('error', 'CSVファイルの処理中にエラーが発生しました: ' . $e->getMessage());
         }
     }
-
 
     public function list(){
         $lists = Post::join('users', 'users.id', '=', 'posts.user_id')
@@ -85,43 +114,40 @@ class AdvanceController extends Controller
     }
 
     public function index(Request $request){
-        $query = Store::leftJoin('posts', 'stores.id', '=', 'posts.store_id')
-            ->select('stores.*', DB::raw('AVG(posts.post) as average_rating'))
-            ->groupBy('stores.id');
+    $query = Store::leftJoin('posts', 'stores.id', '=', 'posts.store_id')
+        ->select('stores.*', DB::raw('AVG(posts.post) as average_rating'))
+        ->whereNull('posts.deleted_at')
+        ->groupBy('stores.id');
 
-        if ($request->has('sort')) {
-            switch ($request->sort) {
-                case 'random':
-                    $stores = Store::inRandomOrder()->get();
-                    break;
-                case 'high':
-                    $storesWithRating = $query->orderBy('average_rating', 'desc')->get()->filter(function ($store) {
-                        return !is_null($store->average_rating);
-                    });
-                    $storesWithoutRating = $query->get()->filter(function ($store) {
-                        return is_null($store->average_rating);
-                    })->shuffle();
-                    $stores = $storesWithRating->concat($storesWithoutRating);
-                    break;
-                case 'low':
-                    $storesWithRating = $query->orderBy('average_rating', 'asc')->get()->filter(function ($store) {
-                        return !is_null($store->average_rating);
-                    });
-                    $storesWithoutRating = $query->get()->filter(function ($store) {
-                        return is_null($store->average_rating);
-                    })->shuffle();
-                    $stores = $storesWithRating->concat($storesWithoutRating);
-                    break;
-                default:
-                    $stores = $query->orderBy('stores.id')->get();
-                    break;
-            }
-        } else {
-            $stores = $query->orderBy('stores.id')->get();
+    if ($request->has('sort')) {
+        switch ($request->sort) {
+            case 'random':
+                $stores = Store::inRandomOrder()->get();
+                break;
+            case 'high':
+                $storesWithRating = $query->orderBy('average_rating', 'desc')->get()->filter(function ($store) {
+                    return !is_null($store->average_rating);
+                });
+                $storesWithoutRating = Store::whereNotIn('id', $storesWithRating->pluck('id'))->inRandomOrder()->get();
+                $stores = $storesWithRating->concat($storesWithoutRating);
+                break;
+            case 'low':
+                $storesWithRating = $query->orderBy('average_rating', 'asc')->get()->filter(function ($store) {
+                    return !is_null($store->average_rating);
+                });
+                $storesWithoutRating = Store::whereNotIn('id', $storesWithRating->pluck('id'))->inRandomOrder()->get();
+                $stores = $storesWithRating->concat($storesWithoutRating);
+                break;
+            default:
+                $stores = $query->orderBy('stores.id')->get();
+                break;
         }
-
-        return view('index', compact('stores'));
+    } else {
+        $stores = $query->orderBy('stores.id')->get();
     }
+
+    return view('index', compact('stores'));
+}
 
     public function search(Request $request){
         $keyword = $request->input('keyword');

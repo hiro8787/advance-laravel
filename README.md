@@ -19,9 +19,18 @@
 ![サンプル画像](./src/public/img/ER図.jpg)
 # 環境構築
 **Dockerビルド**
-1. `git clone git@github.com:hiro8787/advance-laravel.git`
-2. `DockerDesktopアプリを立ち上げる`
-3. `docker-compose up -d --build`
+1. 以下のコマンドを入力しクローンを作成する。
+``` bash
+    git clone git@github.com:hiro8787/advance-laravel.git
+```
+2. 以下のコマンドでリポジトリの移動を実行する。
+``` bash
+    cd advance-laravel
+```
+3. docker composeを使ってコンテナ構築をする。
+``` bash
+    docker-compose up -d --build
+```
 
 > *`no matching manifest for linux/arm64/v8 in the manifest list entries`とエラーメッセージが出る場合
 docker-compose.ymlファイルの「mysql」と「phpmyadmin」内に「platform」の項目を追加で記載してください*
@@ -38,19 +47,28 @@ phpmyadmin:
     environment:
 ```
 **Laravel環境構築**
-1. `docker-compose exec php bash`
-2. `composer install`
-3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
-4. .envに以下の環境変数を追加
-``` text
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel_db
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_pass
+1. 以下のコマンドでPHPのコンテナにアクセスする。
+``` bash
+    docker-compose exec php bash
 ```
-5. アプリケーションキーの作成
+2. 以下のコマンドで「.env.example」ファイルを元に「.env」を作成する。
+``` bash
+    cp .env.example .env
+```
+3. .envに以下の環境変数を追加
+``` text
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel_db
+    DB_USERNAME=laravel_user
+    DB_PASSWORD=laravel_pass
+```
+4. 以下のコマンドでcomposerをインストールする。
+``` bash
+    composer install
+```
+5. アプリケーションキーの作成をする
 ``` bash
 php artisan key:generate
 ```
@@ -63,22 +81,18 @@ php artisan migrate
 php artisan db:seed
 ```
 **MailHogの環境構築手順**(電子メールのテストツールです)
-1. docker-compose.ymlファイルに以下を追記
-``` bash
-mailhog:
-    image: mailhog/mailhog
-    ports:
-        - "8025:8025"
+1. .envファイルに下記を追加
+``` text
+    MAIL_MAILER=smtp
+    MAIL_HOST=mailhog
+    MAIL_PORT=1025
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS=hello@example.com (このアドレスを追記)
+    MAIL_FROM_NAME="${APP_NAME}"
 ```
-2. Dockerの再ビルド
-```bash
-docker-compose build
-```
-3. コンテナの起動
-```bash
-docker-compose up -d
-```
-4. メールの確認画面
+2. メールの確認画面
 `http://localhost:8025` にアスセスする事で確認可能
 
 **管理画面で店舗追加時の必須項目** ※下記に見本あり
@@ -93,12 +107,12 @@ docker-compose up -d
 一般ユーザーは会員登録後にお店の予約や、お気に入り登録、レビュー等して頂けます。
 ※会員登録にはメール認証が必須となります。
 2. 店舗代表者ユーザー
-店舗代表者ユーザーは以下のアドレスでログインして頂くと、店舗情報の作成や更新、予約情報の確認が可能です。
-メールアドレス：`representative@example.com`
+店舗代表者ユーザーは以下のアドレスでログインして頂くと、店舗情報の作成や更新、予約情報の確認が可能です。  
+メールアドレス：`representative@example.com`  
 パスワード：`password`
 3. 管理ユーザー
-管理ユーザーは以下のアドレスでログインして頂くと、お店の追加や店舗代表者を作成できます。
-メールアドレス：`admin@example.com`
+管理ユーザーは以下のアドレスでログインして頂くと、お店の追加や店舗代表者を作成できます。  
+メールアドレス：`admin@example.com`  
 パスワード：`password`
 
 ## 環境開発

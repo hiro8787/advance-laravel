@@ -20,19 +20,24 @@ use App\Http\Controllers\ManagementController;
 
 Route::get('/', [AdvanceController::class,'index']);
 Route::get('/admin', [AdvanceController::class, 'adminDashboard'])->name('admin')->middleware('auth');
-Route::post('/import', [AdvanceController::class, 'import'])->name('import');;
+Route::post('/addition_page', [RegisterController::class,'addition_page']);
+Route::get('/addition_page', [RegisterController::class,'addition_page']);
+Route::post('/addition_create', [RegisterController::class,'addition_create']);
+Route::post('/import', [AdvanceController::class, 'import'])->name('import');
 Route::get('/addition', [AdvanceController::class,'addition']);
 Route::get('/list', [AdvanceController::class,'list']);
 Route::get('/list_delete', [AdvanceController::class,'list_delete']);
 Route::get('/search', [AdvanceController::class,'search'])->name('search');
 Route::post('/register', [RegisterController::class,'register']);
-Route::post('/login', [AdvanceController::class, 'login']);
+Route::get('/verification', [RegisterController::class, 'getVerification'])->name('verification');
+Route::get('/verification/notice', [RegisterController::class, 'againVerification'])->name('verification.notice');
+Route::post('/verification/resend', [RegisterController::class, 'resendVerificationEmail'])->name('verification.resend');
+Route::post('/login', [AdvanceController::class, 'login'])->name('login');
 
 Route::prefix('payment')->name('payment.')->group(function () {
     Route::get('/create', [PaymentController::class, 'create'])->name('create');
     Route::post('/store', [PaymentController::class, 'store'])->name('store');
 });
-
 Route::get('/confirmation', [AdvanceController::class,'confirmation']);
 
 Route::middleware('auth')->group(function () {
@@ -60,9 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/representative', [ManagementController::class, 'representative'])
     ->name('representative');
     Route::get('/reservation_status', [ManagementController::class, 'reservation_status']);
-    Route::get('/store_update', [ManagementController::class, 'store_update']);
+    Route::get('/store_all', [ManagementController::class, 'store_all']);
+    Route::post('/store_edit', [ManagementController::class, 'store_edit']);
+    Route::get('/store_edit', [ManagementController::class, 'store_edit']);
+    Route::post('/store_update', [ManagementController::class, 'store_update']);
 });
-
-
-
-
