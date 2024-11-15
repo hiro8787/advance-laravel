@@ -34,9 +34,14 @@ class ManagementController extends Controller
 
     public function store_edit(Request $request){
         $form = $request->input('id');
+        $name = $request->input('store_name');
+        $image = $request->input('image');
+        $location = $request->input('location');
+        $category = $request->input('category');
+        $explanation = $request->input('explanation');
         $store = Store::find($form);
         $items = Store::select('location', 'category')->get();
-        return view('store_edit', compact('store', 'items'));
+        return view('store_edit', compact('form', 'store', 'items', 'image', 'name', 'location', 'category', 'explanation'));
     }
 
     public function store_update(UpdateRequest $request){

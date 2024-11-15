@@ -124,14 +124,16 @@ class AdvanceController extends Controller
                 $stores = Store::inRandomOrder()->get();
                 break;
             case 'high':
-                $storesWithRating = $query->orderBy('average_rating', 'desc')->get()->filter(function ($store) {
+                $storesWithRating = $query->whereNull('posts.deleted_at')
+                ->orderBy('average_rating', 'desc')->get()->filter(function ($store) {
                     return !is_null($store->average_rating);
                 });
                 $storesWithoutRating = Store::whereNotIn('id', $storesWithRating->pluck('id'))->inRandomOrder()->get();
                 $stores = $storesWithRating->concat($storesWithoutRating);
                 break;
             case 'low':
-                $storesWithRating = $query->orderBy('average_rating', 'asc')->get()->filter(function ($store) {
+                $storesWithRating = $query->whereNull('posts.deleted_at')
+                ->orderBy('average_rating', 'asc')->get()->filter(function ($store) {
                     return !is_null($store->average_rating);
                 });
                 $storesWithoutRating = Store::whereNotIn('id', $storesWithRating->pluck('id'))->inRandomOrder()->get();
